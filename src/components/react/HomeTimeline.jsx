@@ -3,6 +3,8 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import { Button, Card, Space, Tag, Timeline, Typography } from "antd";
 
 const { Paragraph, Text, Title } = Typography;
+const INITIAL_VISIBLE_COUNT = 3;
+const LOAD_STEP = 3;
 
 function getStoredLanguage() {
   if (typeof window === "undefined") return "en";
@@ -20,23 +22,37 @@ function formatDate(date, language) {
 
 export default function HomeTimeline({ items = [] }) {
   const [language, setLanguage] = useState("en");
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
 
   useEffect(() => {
     const syncLanguage = (event) => setLanguage(event.detail?.lang || getStoredLanguage());
+    const showMore = () => {
+      setVisibleCount((currentCount) => Math.min(currentCount + LOAD_STEP, items.length));
+    };
 
     setLanguage(getStoredLanguage());
     document.addEventListener("site-language-change", syncLanguage);
+    document.addEventListener("site-show-more-timeline", showMore);
     document.dispatchEvent(new CustomEvent("site-set-language", { detail: { lang: getStoredLanguage() } }));
     window.setTimeout(() => {
       const query = new URLSearchParams(window.location.search).get("q") || "";
       document.dispatchEvent(new CustomEvent("site-search-query", { detail: { query } }));
     }, 0);
 
-    return () => document.removeEventListener("site-language-change", syncLanguage);
-  }, []);
+    return () => {
+      document.removeEventListener("site-language-change", syncLanguage);
+      document.removeEventListener("site-show-more-timeline", showMore);
+    };
+  }, [items.length]);
 
-  const timelineItems = items.map((item) => ({
-    className: `timeline-item${item.visible ? "" : " is-hidden"}`,
+  useEffect(() => {
+    document.dispatchEvent(new CustomEvent("site-timeline-status", {
+      detail: { hasMore: visibleCount < items.length },
+    }));
+  }, [items.length, visibleCount]);
+
+  const timelineItems = items.map((item, index) => ({
+    className: `timeline-item${index < visibleCount ? "" : " is-hidden"}`,
     children: (
       <Card
         className="timeline-card"

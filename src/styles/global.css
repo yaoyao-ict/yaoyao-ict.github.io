@@ -1555,6 +1555,19 @@ body.dark .timeline-card-description.ant-typography {
   color: var(--muted);
 }
 
+body.dark .site-footer {
+  background: #1d2330;
+}
+
+body.dark .footer-links a,
+body.dark .copyright {
+  color: var(--muted);
+}
+
+body.dark .footer-links a:hover {
+  color: var(--brand);
+}
+
 body.dark .collection-item {
   border-top-color: #2d3442;
 }

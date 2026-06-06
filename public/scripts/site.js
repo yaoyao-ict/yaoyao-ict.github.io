@@ -405,7 +405,6 @@ const getLanguage = () => localStorage.getItem("language") || "en";
 const getTheme = () => localStorage.getItem("theme") || "light";
 const getText = (key, lang = getLanguage()) => translations[lang]?.[key] || translations.en[key] || "";
 const getTimelineList = () => document.querySelector("[data-timeline-list]");
-const getShowMoreButton = () => document.querySelector("[data-show-more]");
 
 function closeMenus() {
   document.querySelectorAll(".nav-menu.open").forEach((menu) => {
@@ -423,16 +422,6 @@ function updateThemeButton() {
   document.querySelectorAll("[data-theme]").forEach((button) => {
     button.setAttribute("aria-label", value);
   });
-}
-
-function updateShowMoreButton() {
-  const timelineList = getTimelineList();
-  const showMoreButton = getShowMoreButton();
-  if (!showMoreButton || !timelineList) return;
-  const key = timelineList.classList.contains("expanded") ? "button.showLess" : "button.showMore";
-  const value = getText(key);
-  showMoreButton.dataset.i18n = key;
-  showMoreButton.textContent = value;
 }
 
 function getSearchQuery() {
@@ -457,9 +446,6 @@ function filterHomeTimeline(query = getSearchQuery()) {
     items.forEach((item) => item.classList.remove("is-search-hidden"));
     if (searchSummary) searchSummary.hidden = true;
     if (searchEmpty) searchEmpty.hidden = true;
-    const showMoreButton = getShowMoreButton();
-    if (showMoreButton) showMoreButton.hidden = false;
-    updateShowMoreButton();
     return;
   }
 
@@ -478,8 +464,6 @@ function filterHomeTimeline(query = getSearchQuery()) {
   updateSearchSummary(query.trim(), matchCount);
   if (searchSummary) searchSummary.hidden = false;
   if (searchEmpty) searchEmpty.hidden = matchCount > 0;
-  const showMoreButton = getShowMoreButton();
-  if (showMoreButton) showMoreButton.hidden = true;
 }
 
 function applyTheme(theme, animate = false) {
@@ -526,7 +510,6 @@ function applyLanguage(lang) {
   });
 
   updateThemeButton();
-  updateShowMoreButton();
   filterHomeTimeline();
   document.dispatchEvent(new CustomEvent("site-language-change", { detail: { lang: nextLang } }));
 }
@@ -584,11 +567,6 @@ document.addEventListener("site-search-query", (event) => {
 });
 
 window.addEventListener("popstate", () => filterHomeTimeline());
-
-getShowMoreButton()?.addEventListener("click", () => {
-  timelineList?.classList.toggle("expanded");
-  updateShowMoreButton();
-});
 
 applyTheme(getTheme());
 applyLanguage(getLanguage());
