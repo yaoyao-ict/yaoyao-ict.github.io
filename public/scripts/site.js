@@ -421,6 +421,19 @@ function applyTheme(theme, animate = false) {
   document.body.classList.toggle("dark", theme === "dark");
   localStorage.setItem("theme", theme);
   updateThemeButton();
+  document.dispatchEvent(new CustomEvent("site-theme-change", { detail: { theme } }));
+}
+
+function openSearchDialog(query = "") {
+  const searchInput = document.querySelector("#site-search");
+  if (searchInput && query) {
+    searchInput.value = query;
+  }
+
+  if (typeof searchDialog?.showModal === "function") {
+    searchDialog.showModal();
+    searchInput?.focus();
+  }
 }
 
 function applyLanguage(lang) {
@@ -483,9 +496,7 @@ document.addEventListener("click", (event) => {
   const searchButton = event.target.closest("[data-open-search]");
   if (searchButton) {
     event.stopPropagation();
-    if (typeof searchDialog.showModal === "function") {
-      searchDialog.showModal();
-    }
+    openSearchDialog();
     return;
   }
 
@@ -506,6 +517,18 @@ document.addEventListener("click", (event) => {
   }
 
   closeMenus();
+});
+
+document.addEventListener("site-set-language", (event) => {
+  applyLanguage(event.detail?.lang);
+});
+
+document.addEventListener("site-set-theme", (event) => {
+  applyTheme(event.detail?.theme, true);
+});
+
+document.addEventListener("site-open-search", (event) => {
+  openSearchDialog(event.detail?.query || "");
 });
 
 showMoreButton?.addEventListener("click", () => {

@@ -1,14 +1,12 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Button, Dropdown, Space } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Dropdown, Input, Segmented, Space, Switch } from "antd";
 import {
   AppstoreOutlined,
   BarChartOutlined,
   BookOutlined,
   DownOutlined,
   FolderOutlined,
-  GlobalOutlined,
   MenuOutlined,
-  MoonOutlined,
   RocketOutlined,
   SearchOutlined,
   ThunderboltOutlined,
@@ -43,19 +41,19 @@ const text = {
     "nav.writing.deployment": "Deployment Notes",
   },
   zh: {
-    "button.menu": "菜单",
-    "button.search": "搜索",
-    "button.theme": "主题",
-    "label.language": "语言",
-    "nav.about": "关于",
-    "nav.projects": "项目",
-    "nav.projects.all": "全部项目",
-    "nav.projects.automation": "自动化",
-    "nav.projects.data": "数据看板",
-    "nav.writing": "写作",
-    "nav.writing.all": "全部文章",
-    "nav.writing.career": "职业成长",
-    "nav.writing.deployment": "部署笔记",
+    "button.menu": "\u83dc\u5355",
+    "button.search": "\u641c\u7d22",
+    "button.theme": "\u4e3b\u9898",
+    "label.language": "\u8bed\u8a00",
+    "nav.about": "\u5173\u4e8e",
+    "nav.projects": "\u9879\u76ee",
+    "nav.projects.all": "\u5168\u90e8\u9879\u76ee",
+    "nav.projects.automation": "\u81ea\u52a8\u5316",
+    "nav.projects.data": "\u6570\u636e\u770b\u677f",
+    "nav.writing": "\u5199\u4f5c",
+    "nav.writing.all": "\u5168\u90e8\u6587\u7ae0",
+    "nav.writing.career": "\u804c\u4e1a\u6210\u957f",
+    "nav.writing.deployment": "\u90e8\u7f72\u7b14\u8bb0",
   },
 };
 
@@ -64,14 +62,27 @@ function storedLanguage() {
   return window.localStorage.getItem("language") || "en";
 }
 
+function storedTheme() {
+  if (typeof window === "undefined") return "light";
+  return window.localStorage.getItem("theme") || "light";
+}
+
 export default function SiteHeader({ navigation, home = false, currentPath = "/" }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [language, setLanguage] = useState(storedLanguage);
+  const [theme, setTheme] = useState(storedTheme);
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     const syncLanguage = (event) => setLanguage(event.detail?.lang || storedLanguage());
+    const syncTheme = (event) => setTheme(event.detail?.theme || storedTheme());
+
     document.addEventListener("site-language-change", syncLanguage);
-    return () => document.removeEventListener("site-language-change", syncLanguage);
+    document.addEventListener("site-theme-change", syncTheme);
+    return () => {
+      document.removeEventListener("site-language-change", syncLanguage);
+      document.removeEventListener("site-theme-change", syncTheme);
+    };
   }, []);
 
   const t = (key, fallback) => text[language]?.[key] || text.en[key] || fallback || key;
@@ -80,10 +91,17 @@ export default function SiteHeader({ navigation, home = false, currentPath = "/"
     return group.links?.some((link) => currentPath.startsWith(link.href));
   });
 
-  const languageItems = useMemo(() => [
-    { key: "en", label: <button className="antd-menu-button" type="button" data-language-option="en">English</button> },
-    { key: "zh", label: <button className="antd-menu-button" type="button" data-language-option="zh">中文</button> },
-  ], []);
+  const setSiteLanguage = (nextLanguage) => {
+    document.dispatchEvent(new CustomEvent("site-set-language", { detail: { lang: nextLanguage } }));
+  };
+
+  const setSiteTheme = (checked) => {
+    document.dispatchEvent(new CustomEvent("site-set-theme", { detail: { theme: checked ? "dark" : "light" } }));
+  };
+
+  const openSearch = (query = searchValue) => {
+    document.dispatchEvent(new CustomEvent("site-open-search", { detail: { query } }));
+  };
 
   return (
     <header className={`antd-site-header ${home ? "home" : "compact"}`}>
@@ -135,17 +153,33 @@ export default function SiteHeader({ navigation, home = false, currentPath = "/"
         </nav>
 
         <Space className="antd-header-tools" size={8}>
-          <Dropdown menu={{ items: languageItems }} trigger={["click"]} placement="bottomRight" arrow={{ pointAtCenter: true }}>
-            <Button icon={<GlobalOutlined />} data-language-trigger>
-              <span data-language-label>{t("label.language", "Language")}</span>
-            </Button>
-          </Dropdown>
-          <Button icon={<SearchOutlined />} data-open-search aria-label={t("button.search", "Search")}>
-            {t("button.search", "Search")}
-          </Button>
-          <Button icon={<MoonOutlined />} data-theme aria-label={t("button.theme", "Theme")}>
-            <span data-theme-label>{t("button.theme", "Theme")}</span>
-          </Button>
+          <Segmented
+            className="antd-language-toggle"
+            aria-label={t("label.language", "Language")}
+            value={language}
+            options={[
+              { label: "EN", value: "en" },
+              { label: "\u4e2d", value: "zh" },
+            ]}
+            onChange={setSiteLanguage}
+          />
+          <Switch
+            className="antd-theme-switch"
+            checked={theme === "dark"}
+            checkedChildren="Dark"
+            unCheckedChildren="Light"
+            aria-label={t("button.theme", "Theme")}
+            onChange={setSiteTheme}
+          />
+          <Input.Search
+            className="antd-header-search"
+            value={searchValue}
+            placeholder={t("button.search", "Search")}
+            enterButton={<SearchOutlined />}
+            onChange={(event) => setSearchValue(event.target.value)}
+            onSearch={openSearch}
+            aria-label={t("button.search", "Search")}
+          />
         </Space>
       </div>
     </header>
