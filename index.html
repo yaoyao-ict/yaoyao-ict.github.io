@@ -23,10 +23,29 @@
       </button>
 
       <nav class="main-nav" id="main-nav" aria-label="主导航">
-        <a href="#work">项目</a>
-        <a href="#writing">文章</a>
-        <a href="#about">关于</a>
-        <a href="#contact">联系</a>
+        <div class="nav-menu">
+          <button type="button" class="nav-menu-trigger" aria-expanded="false">项目</button>
+          <div class="dropdown">
+            <a href="/projects/">全部项目</a>
+            <a href="/projects/automation/">自动化</a>
+            <a href="/projects/data/">数据与仪表盘</a>
+          </div>
+        </div>
+        <div class="nav-menu">
+          <button type="button" class="nav-menu-trigger" aria-expanded="false">文章</button>
+          <div class="dropdown">
+            <a href="/writing/">全部文章</a>
+            <a href="/writing/deployment/">部署笔记</a>
+            <a href="/writing/career/">职业成长</a>
+          </div>
+        </div>
+        <div class="nav-menu">
+          <button type="button" class="nav-menu-trigger" aria-expanded="false">关于</button>
+          <div class="dropdown">
+            <a href="/about/">关于我</a>
+            <a href="/contact/">联系方式</a>
+          </div>
+        </div>
       </nav>
 
       <div class="header-tools" aria-label="网站工具">
@@ -57,8 +76,8 @@
           当前关注方向，以及你希望别人第一眼记住的能力。
         </p>
         <div class="intro-actions">
-          <a class="primary-link" href="#work">查看项目</a>
-          <a class="secondary-link" href="#contact">联系我</a>
+          <a class="primary-link" href="/projects/">查看项目</a>
+          <a class="secondary-link" href="/contact/">联系我</a>
         </div>
       </section>
 
@@ -67,7 +86,7 @@
           <h2 id="work-title" class="section-title">精选项目</h2>
 
           <article class="post featured">
-            <a href="#" class="post-title">项目一：智能仪表盘</a>
+            <a href="/projects/data/" class="post-title">项目一：智能仪表盘</a>
             <p class="subtitle">React / TypeScript / Data Visualization</p>
             <p>
               用一句话说明这个项目解决了什么问题、你的职责是什么，以及它带来了什么结果。
@@ -76,7 +95,7 @@
           </article>
 
           <article class="post">
-            <a href="#" class="post-title">项目二：自动化工作流</a>
+            <a href="/projects/automation/" class="post-title">项目二：自动化工作流</a>
             <p class="subtitle">Python / Azure / API Integration</p>
             <p>
               展示你如何把重复操作自动化，或者如何连接多个系统，让业务流程更稳定、更高效。
@@ -84,7 +103,7 @@
           </article>
 
           <article class="post">
-            <a href="#" class="post-title">项目三：个人知识库</a>
+            <a href="/projects/" class="post-title">项目三：个人知识库</a>
             <p class="subtitle">Content System / Search / UX</p>
             <p>
               如果你有博客、笔记系统、开源项目或课程内容，可以用这个卡片入口聚合起来。
@@ -103,14 +122,14 @@
           <section class="skills">
             <h2 class="section-title">技能标签</h2>
             <div class="chips">
-              <a href="#">React</a>
-              <a href="#">TypeScript</a>
-              <a href="#">Azure</a>
-              <a href="#">Python</a>
-              <a href="#">Product</a>
-              <a href="#">Design Systems</a>
-              <a href="#">Automation</a>
-              <a href="#">Data</a>
+              <a href="/projects/">React</a>
+              <a href="/projects/">TypeScript</a>
+              <a href="/writing/deployment/">Azure</a>
+              <a href="/projects/automation/">Python</a>
+              <a href="/about/">Product</a>
+              <a href="/projects/">Design Systems</a>
+              <a href="/projects/automation/">Automation</a>
+              <a href="/projects/data/">Data</a>
             </div>
           </section>
         </aside>
@@ -119,15 +138,15 @@
       <section class="writing" id="writing" aria-labelledby="writing-title">
         <h2 id="writing-title" class="section-title">最近文章</h2>
         <div class="writing-list">
-          <a href="#">
+          <a href="/writing/deployment/">
             <span>如何搭建一个可长期维护的个人网站</span>
             <small>Web / Deployment</small>
           </a>
-          <a href="#">
+          <a href="/writing/deployment/">
             <span>我如何用 Azure 发布静态站点</span>
             <small>Azure / GitHub</small>
           </a>
-          <a href="#">
+          <a href="/writing/career/">
             <span>把项目经历写得更像作品，而不是流水账</span>
             <small>Career / Writing</small>
           </a>
@@ -141,31 +160,31 @@
         </div>
         <div class="contact-links">
           <a href="mailto:you@example.com">you@example.com</a>
-          <a href="https://github.com/your-username">GitHub</a>
+          <a href="https://github.com/yaoyao-ict">GitHub</a>
           <a href="https://www.linkedin.com/">LinkedIn</a>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <a class="brand footer-brand" href="#">Yao<span class="spark">W</span>Yao</a>
+      <a class="brand footer-brand" href="/">Yao<span class="spark">W</span>Yao</a>
       <div class="footer-links">
         <section>
           <h2>站点</h2>
-          <a href="#work">项目</a>
-          <a href="#writing">文章</a>
-          <a href="#about">关于</a>
+          <a href="/projects/">项目</a>
+          <a href="/writing/">文章</a>
+          <a href="/about/">关于</a>
         </section>
         <section>
           <h2>社交</h2>
-          <a href="https://github.com/your-username">GitHub</a>
+          <a href="https://github.com/yaoyao-ict">GitHub</a>
           <a href="https://www.linkedin.com/">LinkedIn</a>
           <a href="mailto:you@example.com">Email</a>
         </section>
         <section>
           <h2>下一步</h2>
-          <a href="README.md">部署说明</a>
-          <a href="#contact">联系我</a>
+          <a href="/README.md">部署说明</a>
+          <a href="/contact/">联系我</a>
         </section>
       </div>
       <p class="copyright">Copyright 2026 姚瑶. All rights reserved.</p>
