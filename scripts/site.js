@@ -152,7 +152,9 @@ const translations = {
     "page.writing.lead": "Notes and essays are grouped by topic. The homepage shows only the most recent pieces.",
     "page.writing.title": "Writing Index",
     "search.label": "Search the site",
+    "search.empty": "No results found. Try a different keyword.",
     "search.placeholder": "Search projects, writing, or skills",
+    "search.results": "Search results for \"{query}\" ({count})",
     "title.about": "About | YaoYao",
     "title.contact": "Contact | YaoYao",
     "title.home": "YaoYao",
@@ -347,7 +349,9 @@ const translations = {
     "page.writing.lead": "把笔记和文章按主题归档，首页只显示最近几篇。",
     "page.writing.title": "文章索引",
     "search.label": "搜索站内内容",
+    "search.empty": "没有找到结果，可以换一个关键词试试。",
     "search.placeholder": "搜索项目、文章或技能",
+    "search.results": "“{query}” 的搜索结果（{count}）",
     "title.about": "关于 | 姚瑶",
     "title.contact": "联系 | 姚瑶",
     "title.home": "姚瑶",
@@ -393,10 +397,11 @@ const translations = {
 
 const navToggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector("#main-nav");
-const searchDialog = document.querySelector("[data-search-dialog]");
 const menuButtons = document.querySelectorAll(".nav-menu-trigger");
 const showMoreButton = document.querySelector("[data-show-more]");
 const timelineList = document.querySelector("[data-timeline-list]");
+const searchSummary = document.querySelector("[data-search-summary]");
+const searchEmpty = document.querySelector("[data-search-empty]");
 
 const getLanguage = () => localStorage.getItem("language") || "en";
 const getTheme = () => localStorage.getItem("theme") || "light";
@@ -428,6 +433,47 @@ function updateShowMoreButton() {
   showMoreButton.textContent = value;
 }
 
+function getSearchQuery() {
+  return new URLSearchParams(window.location.search).get("q") || "";
+}
+
+function updateSearchSummary(query, count) {
+  if (!searchSummary) return;
+  const template = getText("search.results") || 'Search results for "{query}" ({count})';
+  searchSummary.textContent = template.replace("{query}", query).replace("{count}", String(count));
+}
+
+function filterHomeTimeline(query = getSearchQuery()) {
+  if (!timelineList) return;
+  const nextQuery = query.trim().toLowerCase();
+  const items = Array.from(timelineList.querySelectorAll(".timeline-item"));
+
+  if (!nextQuery) {
+    timelineList.classList.remove("searching");
+    items.forEach((item) => item.classList.remove("is-search-hidden"));
+    if (searchSummary) searchSummary.hidden = true;
+    if (searchEmpty) searchEmpty.hidden = true;
+    if (showMoreButton) showMoreButton.hidden = false;
+    updateShowMoreButton();
+    return;
+  }
+
+  timelineList.classList.add("searching");
+  let matchCount = 0;
+
+  items.forEach((item) => {
+    const haystack = `${item.dataset.searchText || ""} ${item.textContent || ""}`.toLowerCase();
+    const isMatch = haystack.includes(nextQuery);
+    item.classList.toggle("is-search-hidden", !isMatch);
+    if (isMatch) matchCount += 1;
+  });
+
+  updateSearchSummary(query.trim(), matchCount);
+  if (searchSummary) searchSummary.hidden = false;
+  if (searchEmpty) searchEmpty.hidden = matchCount > 0;
+  if (showMoreButton) showMoreButton.hidden = true;
+}
+
 function applyTheme(theme, animate = false) {
   if (animate) {
     document.body.classList.add("theme-changing");
@@ -438,18 +484,6 @@ function applyTheme(theme, animate = false) {
   localStorage.setItem("theme", theme);
   updateThemeButton();
   document.dispatchEvent(new CustomEvent("site-theme-change", { detail: { theme } }));
-}
-
-function openSearchDialog(query = "") {
-  const searchInput = document.querySelector("#site-search");
-  if (searchInput && query) {
-    searchInput.value = query;
-  }
-
-  if (typeof searchDialog?.showModal === "function") {
-    searchDialog.showModal();
-    searchInput?.focus();
-  }
 }
 
 function applyLanguage(lang) {
@@ -485,6 +519,7 @@ function applyLanguage(lang) {
 
   updateThemeButton();
   updateShowMoreButton();
+  filterHomeTimeline();
   document.dispatchEvent(new CustomEvent("site-language-change", { detail: { lang: nextLang } }));
 }
 
@@ -509,13 +544,6 @@ menuButtons.forEach((button) => {
 });
 
 document.addEventListener("click", (event) => {
-  const searchButton = event.target.closest("[data-open-search]");
-  if (searchButton) {
-    event.stopPropagation();
-    openSearchDialog();
-    return;
-  }
-
   const themeButton = event.target.closest("[data-theme]");
   if (themeButton) {
     event.stopPropagation();
@@ -543,9 +571,11 @@ document.addEventListener("site-set-theme", (event) => {
   applyTheme(event.detail?.theme, true);
 });
 
-document.addEventListener("site-open-search", (event) => {
-  openSearchDialog(event.detail?.query || "");
+document.addEventListener("site-search-query", (event) => {
+  filterHomeTimeline(event.detail?.query || "");
 });
+
+window.addEventListener("popstate", () => filterHomeTimeline());
 
 showMoreButton?.addEventListener("click", () => {
   timelineList?.classList.toggle("expanded");
@@ -554,3 +584,4 @@ showMoreButton?.addEventListener("click", () => {
 
 applyTheme(getTheme());
 applyLanguage(getLanguage());
+filterHomeTimeline();
