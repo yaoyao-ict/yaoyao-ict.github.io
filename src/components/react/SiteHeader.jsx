@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Dropdown, Input, Segmented, Space, Switch } from "antd";
+import { Button, Dropdown, Input, Segmented, Space } from "antd";
 import {
   AppstoreOutlined,
   BarChartOutlined,
@@ -105,8 +105,8 @@ export default function SiteHeader({ navigation, home = false, currentPath = "/"
     document.dispatchEvent(new CustomEvent("site-set-language", { detail: { lang: nextLanguage } }));
   };
 
-  const setSiteTheme = (checked) => {
-    document.dispatchEvent(new CustomEvent("site-set-theme", { detail: { theme: checked ? "dark" : "light" } }));
+  const toggleSiteTheme = () => {
+    document.dispatchEvent(new CustomEvent("site-set-theme", { detail: { theme: theme === "dark" ? "light" : "dark" } }));
   };
 
   const runSearch = (query = searchValue) => {
@@ -184,13 +184,11 @@ export default function SiteHeader({ navigation, home = false, currentPath = "/"
             ]}
             onChange={setSiteLanguage}
           />
-          <Switch
-            className="antd-theme-switch"
-            checked={theme === "dark"}
-            checkedChildren={<MoonOutlined />}
-            unCheckedChildren={<SunOutlined />}
+          <Button
+            className="antd-theme-button"
+            icon={theme === "dark" ? <SunOutlined /> : <MoonOutlined />}
             aria-label={t("button.theme", "Theme")}
-            onChange={setSiteTheme}
+            onClick={toggleSiteTheme}
           />
           <Input.Search
             className="antd-header-search"

@@ -52,7 +52,11 @@ export default function HomeTimeline({ items = [] }) {
   }, [items.length, visibleCount]);
 
   const timelineItems = items.map((item, index) => ({
-    className: `timeline-item${index < visibleCount ? "" : " is-hidden"}`,
+    className: [
+      "timeline-item",
+      index >= visibleCount && "is-hidden",
+      index === visibleCount - 1 && "is-last-visible",
+    ].filter(Boolean).join(" "),
     children: (
       <Card
         className="timeline-card"
@@ -61,7 +65,7 @@ export default function HomeTimeline({ items = [] }) {
         data-search-text={`${item.title} ${item.description} ${item.meta} ${item.date}`}
       >
         <Space className="timeline-card-meta" size={8} wrap>
-          <Tag color="magenta">{item.category}</Tag>
+          <Tag color="blue">{item.category}</Tag>
           <Text type="secondary">
             <time dateTime={item.date}>{formatDate(item.date, language)}</time>
           </Text>

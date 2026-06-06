@@ -363,77 +363,24 @@ input {
   color: var(--brand);
 }
 
-.antd-theme-switch.ant-switch {
-  min-width: 56px;
-  width: 56px;
-  height: 32px;
-  border: 1px solid rgba(26, 31, 40, 0.1);
-  background: rgba(255, 255, 255, 0.72);
-  line-height: 32px;
-  box-shadow: none;
-}
-
-.antd-theme-switch.ant-switch .ant-switch-handle {
-  top: 50%;
-  inset-inline-start: 4px;
-  width: 24px;
-  height: 24px;
-  transform: translateY(-50%);
-}
-
-.antd-theme-switch.ant-switch.ant-switch-checked .ant-switch-handle {
-  inset-inline-start: calc(100% - 28px);
-}
-
-.antd-theme-switch.ant-switch .ant-switch-handle::before {
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(26, 31, 40, 0.16);
-}
-
-.antd-theme-switch.ant-switch .ant-switch-inner,
-.antd-theme-switch.ant-switch .ant-switch-inner-checked,
-.antd-theme-switch.ant-switch .ant-switch-inner-unchecked {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--brand);
-  font-size: 14px;
-  line-height: 1;
-}
-
-.antd-theme-switch.ant-switch .anticon {
+.antd-theme-button.ant-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 14px;
-  height: 14px;
+  width: 34px;
+  height: 34px;
+  border-color: rgba(26, 31, 40, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--brand);
+  box-shadow: none;
+}
+
+.antd-theme-button.ant-btn .anticon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
-}
-
-.antd-theme-switch.ant-switch .anticon svg {
-  display: block;
-  width: 14px;
-  height: 14px;
-}
-
-.antd-theme-switch.ant-switch .ant-switch-inner {
-  min-height: 30px;
-  padding-inline-start: 27px;
-  padding-inline-end: 7px;
-}
-
-.antd-theme-switch.ant-switch.ant-switch-checked .ant-switch-inner {
-  padding-inline-start: 7px;
-  padding-inline-end: 27px;
-}
-
-.antd-theme-switch.ant-switch.ant-switch-checked {
-  background: var(--brand);
-}
-
-.antd-theme-switch.ant-switch.ant-switch-checked .ant-switch-inner,
-.antd-theme-switch.ant-switch.ant-switch-checked .ant-switch-inner-checked {
-  color: #fff;
 }
 
 .antd-header-search {
@@ -762,7 +709,7 @@ input {
 
 .timeline-list.ant-timeline .ant-timeline-item,
 .timeline-list.ant-timeline .ant-steps-item {
-  padding-bottom: 18px;
+  padding-bottom: 20px;
 }
 
 .timeline-list.ant-timeline .ant-timeline-item.is-hidden {
@@ -780,16 +727,29 @@ input {
 
 .timeline-list.ant-timeline .ant-timeline-item-rail,
 .timeline-list.ant-timeline .ant-steps-item-rail {
-  border-color: #dfe9f0;
+  border-color: #d9d9d9;
+}
+
+.timeline-list.ant-timeline .ant-timeline-item.is-last-visible .ant-timeline-item-rail,
+.timeline-list.ant-timeline .ant-timeline-item.is-last-visible .ant-steps-item-rail {
+  display: none;
+}
+
+.timeline-list.ant-timeline .timeline-item:has(+ .is-hidden) .ant-timeline-item-rail,
+.timeline-list.ant-timeline .timeline-item:has(+ .is-hidden) .ant-steps-item-rail,
+.timeline-list.ant-timeline .timeline-item:last-child .ant-timeline-item-rail,
+.timeline-list.ant-timeline .timeline-item:last-child .ant-steps-item-rail {
+  display: none;
 }
 
 .timeline-list.ant-timeline .ant-timeline-item-icon,
 .timeline-list.ant-timeline .ant-steps-item-icon {
   width: 12px;
   height: 12px;
-  border: 3px solid #fff;
-  background: var(--accent);
-  box-shadow: 0 0 0 2px rgba(217, 20, 114, 0.18);
+  border: 2px solid #fff;
+  background: #1677ff;
+  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.18);
+  transform: translateY(-3px);
 }
 
 .timeline-list.ant-timeline .ant-timeline-item-title,
@@ -806,16 +766,21 @@ input {
   margin-inline-start: 24px;
 }
 
+.timeline-list.ant-timeline .ant-timeline-item-wrapper,
+.timeline-list.ant-timeline .ant-steps-item-wrapper {
+  align-items: center;
+}
+
 .timeline-card.ant-card {
-  border-color: rgba(26, 31, 40, 0.08);
+  border-color: #f0f0f0;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 14px 38px rgba(39, 49, 66, 0.08);
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
 }
 
 .timeline-card.ant-card:hover {
-  border-color: rgba(56, 38, 212, 0.18);
-  box-shadow: 0 18px 48px rgba(39, 49, 66, 0.12);
+  border-color: #91caff;
+  box-shadow: 0 10px 26px rgba(22, 119, 255, 0.08);
 }
 
 .timeline-card .ant-card-body {
@@ -857,7 +822,7 @@ input {
   height: auto;
   margin-top: 12px;
   padding: 0;
-  color: var(--brand);
+  color: #1677ff;
   font-weight: 800;
 }
 
@@ -960,9 +925,8 @@ input {
 .show-more.ant-btn {
   min-width: 132px;
   border-radius: 8px;
-  background: var(--brand);
   font-weight: 800;
-  box-shadow: 0 8px 22px rgba(56, 38, 212, 0.2);
+  box-shadow: none;
 }
 
 body.search-active .show-more.ant-btn {
@@ -1410,13 +1374,10 @@ body.dark .antd-language-toggle .ant-segmented-item-selected {
   color: var(--brand);
 }
 
-body.dark .antd-theme-switch.ant-switch {
+body.dark .antd-theme-button.ant-btn {
   border-color: rgba(255, 255, 255, 0.12);
   background: rgba(24, 28, 39, 0.72);
-}
-
-body.dark .antd-theme-switch.ant-switch.ant-switch-checked {
-  background: var(--brand);
+  color: var(--brand);
 }
 
 body.dark .antd-header-search .ant-input,
