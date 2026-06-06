@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import AntPageHeader from "../components/react/AntPageHeader.jsx";
+import { getBreadcrumbs } from "../data/breadcrumbs.js";
 
 const {
   title,
@@ -9,15 +11,13 @@ const {
   eyebrow,
   toc = [],
 } = Astro.props;
+
+const breadcrumbs = getBreadcrumbs(Astro.url.pathname);
 ---
 
 <BaseLayout title={title} titleKey={titleKey}>
   <article class="article-shell">
-    <header class="article-header">
-      <p class="eyebrow">{eyebrow}</p>
-      <h1 class="article-title" data-i18n={titleKey}>{title}</h1>
-      {subtitle && <p class="article-subtitle" data-i18n={subtitleKey}>{subtitle}</p>}
-    </header>
+    <AntPageHeader eyebrow={eyebrow} title={title} lead={subtitle} titleKey={titleKey} leadKey={subtitleKey} breadcrumbs={breadcrumbs} />
 
     <div class="article-grid">
       <aside class="toc" aria-label="Table of contents">

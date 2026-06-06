@@ -1,9 +1,9 @@
 ---
+import AntPageHeader from "./react/AntPageHeader.jsx";
+import { getBreadcrumbs } from "../data/breadcrumbs.js";
+
 const { eyebrow, title, lead, titleKey, leadKey } = Astro.props;
+const breadcrumbs = getBreadcrumbs(Astro.url.pathname);
 ---
 
-<header class="page-header">
-  <p class="eyebrow">{eyebrow}</p>
-  <h1 class="page-title" data-i18n={titleKey}>{title}</h1>
-  {lead && <p class="page-lead" data-i18n={leadKey}>{lead}</p>}
-</header>
+<AntPageHeader eyebrow={eyebrow} title={title} lead={lead} titleKey={titleKey} leadKey={leadKey} breadcrumbs={breadcrumbs} />

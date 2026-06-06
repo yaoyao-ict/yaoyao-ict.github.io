@@ -19,6 +19,11 @@
   },
   "homepage": "https://yaoyao-ict.github.io/",
   "dependencies": {
-    "astro": "^6.4.4"
+    "@ant-design/icons": "^6.2.5",
+    "@astrojs/react": "^5.0.7",
+    "antd": "^6.4.3",
+    "astro": "^6.4.4",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   }
 }

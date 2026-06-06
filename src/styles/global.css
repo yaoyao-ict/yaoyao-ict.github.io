@@ -253,6 +253,183 @@ input {
   display: none;
 }
 
+.antd-site-header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 15;
+  width: 100%;
+  padding-top: 46px;
+  color: var(--ink);
+  transition: color 420ms ease, background-color 420ms ease;
+}
+
+.antd-site-header.compact {
+  position: static;
+  padding: 28px 0 0;
+  background: linear-gradient(180deg, rgba(216, 241, 251, 0.9), rgba(255, 255, 255, 0));
+}
+
+.antd-header-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+  align-items: center;
+  width: min(100% - 40px, var(--max));
+  margin: 0 auto;
+}
+
+.antd-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--brand);
+  font-size: 21px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.antd-brand-mark {
+  position: relative;
+  top: -9px;
+  color: #4e5868;
+  font-size: 13px;
+  transform: rotate(-18deg);
+}
+
+.antd-main-nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.antd-nav-trigger,
+.antd-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 750;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.antd-nav-trigger:hover,
+.antd-nav-trigger.active,
+.antd-nav-link:hover,
+.antd-nav-link.active {
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--brand);
+}
+
+.antd-caret {
+  font-size: 10px;
+}
+
+.antd-header-tools {
+  justify-content: flex-end;
+}
+
+.antd-header-tools .ant-btn,
+.antd-mobile-toggle {
+  border-color: rgba(26, 31, 40, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--ink);
+  font-weight: 800;
+  box-shadow: none;
+}
+
+.antd-header-tools .ant-btn:hover,
+.antd-mobile-toggle:hover {
+  border-color: rgba(56, 38, 212, 0.22) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
+  color: var(--brand) !important;
+}
+
+.antd-mobile-toggle {
+  display: none;
+  justify-self: end;
+}
+
+.antd-menu-button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.ant-dropdown {
+  padding-top: 4px;
+}
+
+.ant-dropdown .ant-dropdown-menu {
+  min-width: 204px;
+  padding: 7px;
+  border: 1px solid rgba(26, 31, 40, 0.09);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 18px 45px rgba(39, 49, 66, 0.16);
+}
+
+.ant-dropdown .ant-dropdown-menu-item {
+  border-radius: 7px;
+  color: var(--ink);
+  font-weight: 760;
+}
+
+.ant-dropdown .ant-dropdown-menu-item:hover,
+.ant-dropdown .ant-dropdown-menu-item-active,
+.ant-dropdown .ant-dropdown-menu-item-selected {
+  background: var(--chip) !important;
+  color: var(--brand) !important;
+}
+
+.ant-dropdown .ant-dropdown-arrow::before {
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.antd-page-header {
+  max-width: 850px;
+  margin-bottom: 42px;
+}
+
+.antd-breadcrumb {
+  margin-bottom: 18px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.antd-breadcrumb a {
+  color: var(--muted);
+}
+
+.antd-breadcrumb a:hover {
+  color: var(--brand);
+}
+
+.antd-page-title.ant-typography {
+  margin: 0 0 18px;
+  color: var(--ink);
+  font-size: clamp(38px, 6vw, 64px);
+  font-weight: 760;
+  line-height: 1.04;
+}
+
+.antd-page-lead.ant-typography {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.55;
+}
+
 .hero {
   position: relative;
   height: 430px;
@@ -970,6 +1147,67 @@ body.dark .site-header {
   color: var(--ink);
 }
 
+body.dark .antd-site-header.compact {
+  background: linear-gradient(180deg, rgba(23, 28, 42, 0.95), rgba(18, 20, 29, 0));
+}
+
+body.dark .antd-brand {
+  color: var(--brand);
+}
+
+body.dark .antd-brand-mark {
+  color: #dce2ff;
+}
+
+body.dark .antd-nav-trigger,
+body.dark .antd-nav-link {
+  color: var(--ink);
+}
+
+body.dark .antd-nav-trigger:hover,
+body.dark .antd-nav-trigger.active,
+body.dark .antd-nav-link:hover,
+body.dark .antd-nav-link.active,
+body.dark .antd-header-tools .ant-btn,
+body.dark .antd-mobile-toggle {
+  background: rgba(24, 28, 39, 0.72);
+  color: var(--ink);
+}
+
+body.dark .antd-header-tools .ant-btn,
+body.dark .antd-mobile-toggle {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+body.dark .antd-header-tools .ant-btn:hover,
+body.dark .antd-mobile-toggle:hover {
+  border-color: rgba(154, 168, 255, 0.28) !important;
+  background: rgba(42, 50, 68, 0.86) !important;
+  color: var(--brand) !important;
+}
+
+body.dark .ant-dropdown .ant-dropdown-menu {
+  border-color: #2d3442;
+  background: rgba(24, 28, 39, 0.98);
+}
+
+body.dark .ant-dropdown .ant-dropdown-menu-item {
+  color: var(--ink);
+}
+
+body.dark .ant-dropdown .ant-dropdown-arrow::before {
+  background: rgba(24, 28, 39, 0.98);
+}
+
+body.dark .antd-page-title.ant-typography {
+  color: var(--ink);
+}
+
+body.dark .antd-page-lead.ant-typography,
+body.dark .antd-breadcrumb a {
+  color: var(--muted);
+}
+
 body.dark .hero {
   background:
     radial-gradient(circle at 82% 20%, rgba(255, 120, 180, 0.22), transparent 28%),
@@ -1050,6 +1288,59 @@ body.dark .collection-item:last-child {
 }
 
 @media (max-width: 820px) {
+  .antd-site-header {
+    padding-top: 20px;
+  }
+
+  .antd-site-header.compact {
+    padding-top: 20px;
+  }
+
+  .antd-header-inner {
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    width: min(100% - 28px, var(--max));
+  }
+
+  .antd-mobile-toggle {
+    display: inline-flex;
+  }
+
+  .antd-main-nav,
+  .antd-header-tools {
+    grid-column: 1 / -1;
+  }
+
+  .antd-main-nav {
+    display: none;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 10px;
+    border: 1px solid rgba(26, 31, 40, 0.09);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.88);
+  }
+
+  .antd-main-nav.open {
+    display: grid;
+  }
+
+  .antd-nav-trigger,
+  .antd-nav-link {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .antd-header-tools {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  body.dark .antd-main-nav {
+    border-color: #2d3442;
+    background: rgba(24, 28, 39, 0.9);
+  }
+
   .site-header {
     grid-template-columns: 1fr auto;
     gap: 14px;
