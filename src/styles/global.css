@@ -91,6 +91,8 @@ input {
 
 .nav-menu {
   position: relative;
+  margin-bottom: -16px;
+  padding-bottom: 16px;
 }
 
 .nav-menu-trigger {
@@ -111,7 +113,7 @@ input {
 
 .dropdown {
   position: absolute;
-  top: calc(100% + 12px);
+  top: 100%;
   left: -16px;
   z-index: 20;
   display: grid;
@@ -703,6 +705,8 @@ body.dark .writing-list a {
 
   .nav-menu {
     width: 100%;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
   .nav-menu-trigger {
