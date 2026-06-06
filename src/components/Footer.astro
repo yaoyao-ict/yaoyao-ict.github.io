@@ -1,0 +1,27 @@
+---
+import { navigation } from "../data/navigation.js";
+---
+
+<footer class="site-footer">
+  <a class="brand footer-brand" href="/">Yao<span class="spark">W</span>Yao</a>
+  <div class="footer-links">
+    <section>
+      <h2>站点</h2>
+      {navigation.flatMap((group) => group.links).slice(0, 5).map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </section>
+    <section>
+      <h2>社交</h2>
+      <a href="https://github.com/yaoyao-ict">GitHub</a>
+      <a href="https://www.linkedin.com/">LinkedIn</a>
+      <a href="mailto:you@example.com">Email</a>
+    </section>
+    <section>
+      <h2>下一步</h2>
+      <a href="/writing/deployment/">部署笔记</a>
+      <a href="/contact/">联系我</a>
+    </section>
+  </div>
+  <p class="copyright">Copyright 2026 姚瑶. All rights reserved.</p>
+</footer>

@@ -1,0 +1,35 @@
+---
+import { navigation } from "../data/navigation.js";
+
+const { home = false } = Astro.props;
+---
+
+<header class:list={["site-header", !home && "compact-header"]}>
+  <a class="brand" href="/" aria-label="回到首页">
+    <span>Yao</span>
+    <span class="spark">W</span>
+    <span>Yao</span>
+  </a>
+
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+    Menu
+  </button>
+
+  <nav class="main-nav" id="main-nav" aria-label="主导航">
+    {navigation.map((group) => (
+      <div class="nav-menu">
+        <button type="button" class="nav-menu-trigger" aria-expanded="false">
+          {group.label}
+        </button>
+        <div class="dropdown">
+          {group.links.map((link) => <a href={link.href}>{link.label}</a>)}
+        </div>
+      </div>
+    ))}
+  </nav>
+
+  <div class="header-tools" aria-label="网站工具">
+    <button class="icon-button" type="button" data-open-search aria-label="搜索">Search</button>
+    <button class="icon-button" type="button" data-theme aria-label="切换深色模式">Theme</button>
+  </div>
+</header>

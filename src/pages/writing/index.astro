@@ -1,0 +1,17 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import { writingCards } from "../../data/navigation.js";
+---
+
+<BaseLayout title="文章 | 姚瑶">
+  <section class="page-shell">
+    <PageHeader
+      eyebrow="Writing"
+      title="文章索引"
+      lead="把笔记和文章按主题归档，首页只显示最近几篇。"
+    />
+    <CardGrid cards={writingCards} />
+  </section>
+</BaseLayout>

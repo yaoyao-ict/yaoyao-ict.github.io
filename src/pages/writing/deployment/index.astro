@@ -1,0 +1,18 @@
+﻿---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PageHeader from "../../../components/PageHeader.astro";
+import DetailCard from "../../../components/DetailCard.astro";
+---
+
+<BaseLayout title="部署笔记 | 姚瑶">
+  <section class="page-shell">
+    <PageHeader
+      eyebrow="Deployment"
+      title="部署笔记"
+      lead="记录这个网站从本地项目到 GitHub Pages 的搭建过程。"
+    />
+    <DetailCard title="GitHub Pages 发布流程">
+      <p>仓库命名为 <code>yaoyao-ict.github.io</code> 后，页面可以直接发布到根域名。</p>
+    </DetailCard>
+  </section>
+</BaseLayout>

@@ -1,0 +1,18 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import DetailCard from "../../components/DetailCard.astro";
+---
+
+<BaseLayout title="关于 | 姚瑶">
+  <section class="page-shell">
+    <PageHeader
+      eyebrow="About"
+      title="关于姚瑶"
+      lead="这里可以写更完整的个人介绍、经历、工作方式和正在关注的方向。"
+    />
+    <DetailCard title="我如何工作">
+      <p>把复杂问题拆清楚，建立稳定流程，并持续迭代用户能真实感受到的体验。</p>
+    </DetailCard>
+  </section>
+</BaseLayout>

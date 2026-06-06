@@ -1,0 +1,17 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import { projectCards } from "../../data/navigation.js";
+---
+
+<BaseLayout title="项目 | 姚瑶">
+  <section class="page-shell">
+    <PageHeader
+      eyebrow="Projects"
+      title="项目索引"
+      lead="这里会按主题管理你的项目，首页只展示精选内容，完整内容放在独立页面里。"
+    />
+    <CardGrid cards={projectCards} />
+  </section>
+</BaseLayout>
