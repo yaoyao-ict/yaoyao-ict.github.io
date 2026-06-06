@@ -1,70 +1,85 @@
-# 姚瑶个人网站
+# YaoYao Personal Website
 
-这是姚瑶的个人网站，使用 Astro 构建，并通过 GitHub Pages 发布。
+This is YaoYao's personal website, built with Astro and published with GitHub Pages.
 
-## 本地开发
+Live site:
+
+```text
+https://yaoyao-ict.github.io/
+```
+
+GitHub repository:
+
+```text
+https://github.com/yaoyao-ict/yaoyao-ict.github.io
+```
+
+## Quick Start
 
 ```powershell
 npm install
 npm run dev
 ```
 
-本地预览地址：
+Local preview:
 
 ```text
 http://127.0.0.1:4321/
 ```
 
-## 构建
+Build:
 
 ```powershell
 npm run build
 ```
 
-构建产物会生成到：
+The generated static site is written to:
 
 ```text
 dist/
 ```
 
-## 目录结构
+## Project Structure
 
 ```text
 src/
-  components/     可复用 UI 组件
-  data/           导航和卡片数据
-  layouts/        页面布局
-  pages/          页面路由
-  styles/         全局设计系统和样式
+  components/     Reusable UI components
+  data/           Navigation, cards, and collection data
+  layouts/        Shared page layouts
+  pages/          Astro routes
+  styles/         Global design system and styles
 public/
-  assets/         静态图片
-  scripts/        浏览器脚本
+  assets/         Static image assets
+  scripts/        Browser scripts for language, theme, and menu behavior
 ```
 
-## 发布
-
-GitHub Actions 会在 push 到 `main` 后：
-
-1. 安装依赖
-2. 运行 `npm run build`
-3. 把 `dist/` 发布到 `gh-pages` 分支
-
-线上地址：
-
-```text
-https://yaoyao-ict.github.io/
-```
-
-## 页面路径
+## Current Information Architecture
 
 ```text
 /
 /projects/
 /projects/automation/
+/projects/automation/workflow-automation/
+/projects/automation/api-handoff-checklist/
 /projects/data/
+/projects/data/smart-dashboard/
+/projects/data/metrics-review/
 /writing/
 /writing/deployment/
+/writing/deployment/personal-website/
+/writing/deployment/github-pages/
 /writing/career/
+/writing/career/project-stories/
+/writing/career/portfolio-evidence/
 /about/
+/about/yaoyao/
 /contact/
 ```
+
+## Publishing
+
+GitHub Pages serves the `gh-pages` branch.
+
+The source code lives on `main`. After changes are merged to `main`, the site should be built and published to `gh-pages`.
+
+See [PROJECT_CONTEXT.md](./PROJECT_CONTEXT.md) and [WORKFLOW.md](./WORKFLOW.md) before starting future work.
