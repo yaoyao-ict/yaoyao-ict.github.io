@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PageHeader from "../../../components/PageHeader.astro";
-import DetailCard from "../../../components/DetailCard.astro";
+import CollectionList from "../../../components/CollectionList.astro";
+import { careerArticles } from "../../../data/navigation.js";
 ---
 
 <BaseLayout title="Career Growth | YaoYao" titleKey="title.writing.career">
@@ -13,10 +14,6 @@ import DetailCard from "../../../components/DetailCard.astro";
       lead="Writing about portfolio work, project storytelling, collaboration, and reflection."
       leadKey="page.writing.career.lead"
     />
-    <DetailCard title="Writing Projects as Real Work" titleKey="detail.career.title">
-      <p data-i18n="detail.career.description">
-        A strong project page focuses on the problem, decisions, process, and results rather than a timeline of tasks.
-      </p>
-    </DetailCard>
+    <CollectionList countLabel="2 Essays" countKey="collection.career.count" items={careerArticles} />
   </section>
 </BaseLayout>

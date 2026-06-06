@@ -1,0 +1,39 @@
+---
+import ArticleLayout from "../../../../layouts/ArticleLayout.astro";
+
+const toc = [
+  { id: "context", label: "Context", key: "article.section.context" },
+  { id: "approach", label: "Approach", key: "article.section.approach" },
+  { id: "outcome", label: "Outcome", key: "article.section.outcome" },
+];
+---
+
+<ArticleLayout
+  title="Automation Workflow"
+  titleKey="article.automationWorkflow.title"
+  subtitle="A workflow automation case study about replacing repetitive manual steps with reliable scripts and service integrations."
+  subtitleKey="article.automationWorkflow.description"
+  eyebrow="Automation"
+  toc={toc}
+>
+  <section id="context">
+    <h2 data-i18n="article.section.context">Context</h2>
+    <p data-i18n="article.automationWorkflow.context">
+      This workflow focuses on reducing repetitive handoffs across tools while keeping enough visibility for people to trust the process.
+    </p>
+  </section>
+
+  <section id="approach">
+    <h2 data-i18n="article.section.approach">Approach</h2>
+    <p data-i18n="article.automationWorkflow.approach">
+      The automation should start with clear checkpoints, predictable logs, and small scripts that are easy to inspect before connecting larger services.
+    </p>
+  </section>
+
+  <section id="outcome">
+    <h2 data-i18n="article.section.outcome">Outcome</h2>
+    <p data-i18n="article.automationWorkflow.outcome">
+      The goal is not just speed. It is fewer missed steps, less context switching, and a process that can be maintained after the first version ships.
+    </p>
+  </section>
+</ArticleLayout>

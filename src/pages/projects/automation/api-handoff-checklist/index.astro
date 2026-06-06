@@ -1,0 +1,31 @@
+---
+import ArticleLayout from "../../../../layouts/ArticleLayout.astro";
+
+const toc = [
+  { id: "context", label: "Context", key: "article.section.context" },
+  { id: "approach", label: "Approach", key: "article.section.approach" },
+  { id: "outcome", label: "Outcome", key: "article.section.outcome" },
+];
+---
+
+<ArticleLayout
+  title="API Handoff Checklist"
+  titleKey="article.apiChecklist.title"
+  subtitle="A checklist-driven automation pattern for reducing missed handoff steps across systems."
+  subtitleKey="article.apiChecklist.description"
+  eyebrow="Automation"
+  toc={toc}
+>
+  <section id="context">
+    <h2 data-i18n="article.section.context">Context</h2>
+    <p data-i18n="article.apiChecklist.context">API handoffs often fail because ownership, dependencies, and validation steps are tracked in different places.</p>
+  </section>
+  <section id="approach">
+    <h2 data-i18n="article.section.approach">Approach</h2>
+    <p data-i18n="article.apiChecklist.approach">The checklist turns every handoff into a small workflow with clear inputs, confirmations, and review points.</p>
+  </section>
+  <section id="outcome">
+    <h2 data-i18n="article.section.outcome">Outcome</h2>
+    <p data-i18n="article.apiChecklist.outcome">The result is a process that is easier to audit and less dependent on memory.</p>
+  </section>
+</ArticleLayout>

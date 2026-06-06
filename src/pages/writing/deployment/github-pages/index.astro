@@ -1,0 +1,39 @@
+---
+import ArticleLayout from "../../../../layouts/ArticleLayout.astro";
+
+const toc = [
+  { id: "source", label: "Source", key: "article.section.source" },
+  { id: "build", label: "Build", key: "article.section.build" },
+  { id: "publish", label: "Publish", key: "article.section.publish" },
+];
+---
+
+<ArticleLayout
+  title="Publishing a Static Site with GitHub Pages"
+  titleKey="article.githubPages.title"
+  subtitle="How this site is built locally, committed to GitHub, and published from the gh-pages branch."
+  subtitleKey="article.githubPages.description"
+  eyebrow="Deployment"
+  toc={toc}
+>
+  <section id="source">
+    <h2 data-i18n="article.section.source">Source</h2>
+    <p data-i18n="article.githubPages.source">
+      The source code lives in the yaoyao-ict.github.io repository, which also gives the site a clean root GitHub Pages URL.
+    </p>
+  </section>
+
+  <section id="build">
+    <h2 data-i18n="article.section.build">Build</h2>
+    <p data-i18n="article.githubPages.build">
+      Local changes are built with Astro so the generated HTML, CSS, and assets can be checked before publishing.
+    </p>
+  </section>
+
+  <section id="publish">
+    <h2 data-i18n="article.section.publish">Publish</h2>
+    <p data-i18n="article.githubPages.publish">
+      The published files are pushed to the gh-pages branch, and GitHub Pages serves that branch as the live website.
+    </p>
+  </section>
+</ArticleLayout>

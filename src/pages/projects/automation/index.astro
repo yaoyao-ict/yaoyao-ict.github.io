@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PageHeader from "../../../components/PageHeader.astro";
-import DetailCard from "../../../components/DetailCard.astro";
+import CollectionList from "../../../components/CollectionList.astro";
+import { automationArticles } from "../../../data/navigation.js";
 ---
 
 <BaseLayout title="Automation Projects | YaoYao" titleKey="title.projects.automation">
@@ -13,10 +14,6 @@ import DetailCard from "../../../components/DetailCard.astro";
       lead="Projects related to Python, APIs, Azure, internal tools, and workflow automation."
       leadKey="page.projects.automation.lead"
     />
-    <DetailCard title="Automation Workflow" titleKey="detail.automation.title">
-      <p data-i18n="detail.automation.description">
-        Breaking repetitive tasks into reliable steps, then connecting them through scripts and services.
-      </p>
-    </DetailCard>
+    <CollectionList countLabel="2 Projects" countKey="collection.automation.count" items={automationArticles} />
   </section>
 </BaseLayout>

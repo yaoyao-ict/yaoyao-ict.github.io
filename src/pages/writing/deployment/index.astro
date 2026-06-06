@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PageHeader from "../../../components/PageHeader.astro";
-import DetailCard from "../../../components/DetailCard.astro";
+import CollectionList from "../../../components/CollectionList.astro";
+import { deploymentArticles } from "../../../data/navigation.js";
 ---
 
 <BaseLayout title="Deployment Notes | YaoYao" titleKey="title.writing.deployment">
@@ -13,10 +14,6 @@ import DetailCard from "../../../components/DetailCard.astro";
       lead="Notes about building this site locally and publishing it with GitHub Pages."
       leadKey="page.writing.deployment.lead"
     />
-    <DetailCard title="GitHub Pages Publishing Flow" titleKey="detail.deployment.title">
-      <p data-i18n="detail.deployment.description">
-        After naming the repository <code>yaoyao-ict.github.io</code>, the site can be published at the root domain.
-      </p>
-    </DetailCard>
+    <CollectionList countLabel="2 Notes" countKey="collection.deployment.count" items={deploymentArticles} />
   </section>
 </BaseLayout>

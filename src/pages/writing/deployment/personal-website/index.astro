@@ -1,0 +1,39 @@
+---
+import ArticleLayout from "../../../../layouts/ArticleLayout.astro";
+
+const toc = [
+  { id: "structure", label: "Structure", key: "article.section.structure" },
+  { id: "publishing", label: "Publishing", key: "article.section.publishing" },
+  { id: "maintenance", label: "Maintenance", key: "article.section.maintenance" },
+];
+---
+
+<ArticleLayout
+  title="Building a Maintainable Personal Website"
+  titleKey="article.website.title"
+  subtitle="Notes on turning a simple static page into a maintainable Astro site."
+  subtitleKey="article.website.description"
+  eyebrow="Deployment"
+  toc={toc}
+>
+  <section id="structure">
+    <h2 data-i18n="article.section.structure">Structure</h2>
+    <p data-i18n="article.website.structure">
+      The site is organized around top-level pages, category pages, and focused detail pages so the homepage does not need to carry everything.
+    </p>
+  </section>
+
+  <section id="publishing">
+    <h2 data-i18n="article.section.publishing">Publishing</h2>
+    <p data-i18n="article.website.publishing">
+      Astro builds the static files, GitHub stores the source code, and GitHub Pages publishes the generated site.
+    </p>
+  </section>
+
+  <section id="maintenance">
+    <h2 data-i18n="article.section.maintenance">Maintenance</h2>
+    <p data-i18n="article.website.maintenance">
+      Reusable components and translation keys make it easier to add future sections without rewriting each page by hand.
+    </p>
+  </section>
+</ArticleLayout>

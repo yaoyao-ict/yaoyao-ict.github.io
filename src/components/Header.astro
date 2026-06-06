@@ -15,7 +15,7 @@ const { home = false } = Astro.props;
     Menu
   </button>
 
-  <nav class="main-nav" id="main-nav" aria-label="主导航">
+  <nav class="main-nav" id="main-nav" aria-label="Main navigation" data-i18n-aria="aria.mainNav">
     {navigation.map((group) => (
       <div class="nav-menu">
         <button type="button" class="nav-menu-trigger" aria-expanded="false" data-i18n={group.key}>
@@ -29,13 +29,15 @@ const { home = false } = Astro.props;
   </nav>
 
   <div class="header-tools" aria-label="Site tools" data-i18n-aria="aria.siteTools">
-    <label class="language-picker">
-      <span data-i18n="label.language">Language</span>
-      <select data-language-select aria-label="Language">
-        <option value="en">EN</option>
-        <option value="zh">中文</option>
-      </select>
-    </label>
+    <div class="nav-menu utility-menu">
+      <button type="button" class="nav-menu-trigger" aria-expanded="false" data-language-trigger data-i18n="label.language">
+        Language
+      </button>
+      <div class="dropdown utility-dropdown">
+        <button type="button" data-language-option="en">English</button>
+        <button type="button" data-language-option="zh">中文</button>
+      </div>
+    </div>
     <button class="icon-button" type="button" data-open-search aria-label="Search" data-i18n="button.search" data-i18n-aria="button.search">Search</button>
     <button class="icon-button" type="button" data-theme aria-label="Toggle theme" data-i18n="button.theme" data-i18n-aria="button.theme">Theme</button>
   </div>

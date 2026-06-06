@@ -1,0 +1,18 @@
+---
+const { countLabel, countKey, items } = Astro.props;
+---
+
+<div class="collection-meta">
+  <span data-i18n={countKey}>{countLabel}</span>
+</div>
+
+<div class="collection-list">
+  {items.map((item) => (
+    <article class="collection-item">
+      <a class="post-title" href={item.href} data-i18n={item.titleKey}>{item.title}</a>
+      <p class="subtitle" data-i18n={item.subtitleKey}>{item.subtitle}</p>
+      <p data-i18n={item.descriptionKey}>{item.description}</p>
+      <a class="read-more" href={item.href} data-i18n="link.readMore">Read more</a>
+    </article>
+  ))}
+</div>

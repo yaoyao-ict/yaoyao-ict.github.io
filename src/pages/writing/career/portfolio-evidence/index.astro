@@ -1,0 +1,31 @@
+---
+import ArticleLayout from "../../../../layouts/ArticleLayout.astro";
+
+const toc = [
+  { id: "capture", label: "Capture", key: "article.section.capture" },
+  { id: "shape", label: "Shape", key: "article.section.shape" },
+  { id: "reuse", label: "Reuse", key: "article.section.reuse" },
+];
+---
+
+<ArticleLayout
+  title="Turning Daily Work into Portfolio Evidence"
+  titleKey="article.portfolioEvidence.title"
+  subtitle="A practical way to capture decisions, constraints, outcomes, and collaboration notes while work is still fresh."
+  subtitleKey="article.portfolioEvidence.description"
+  eyebrow="Career"
+  toc={toc}
+>
+  <section id="capture">
+    <h2 data-i18n="article.section.capture">Capture</h2>
+    <p data-i18n="article.portfolioEvidence.capture">The easiest time to collect useful evidence is while the work is still active and details are not lost.</p>
+  </section>
+  <section id="shape">
+    <h2 data-i18n="article.section.shape">Shape</h2>
+    <p data-i18n="article.portfolioEvidence.shape">Raw notes become stronger when they are organized around problem, constraints, decisions, and result.</p>
+  </section>
+  <section id="reuse">
+    <h2 data-i18n="article.section.reuse">Reuse</h2>
+    <p data-i18n="article.portfolioEvidence.reuse">The same notes can support a portfolio page, resume bullet, interview story, or internal summary.</p>
+  </section>
+</ArticleLayout>

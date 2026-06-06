@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PageHeader from "../../../components/PageHeader.astro";
-import DetailCard from "../../../components/DetailCard.astro";
+import CollectionList from "../../../components/CollectionList.astro";
+import { dataArticles } from "../../../data/navigation.js";
 ---
 
 <BaseLayout title="Data Projects | YaoYao" titleKey="title.projects.data">
@@ -13,10 +14,6 @@ import DetailCard from "../../../components/DetailCard.astro";
       lead="Projects around data visualization, reporting, monitoring, and decision support."
       leadKey="page.projects.data.lead"
     />
-    <DetailCard title="Smart Dashboard" titleKey="detail.data.title">
-      <p data-i18n="detail.data.description">
-        Turning key metrics into views that are easy to scan, compare, and act on.
-      </p>
-    </DetailCard>
+    <CollectionList countLabel="2 Projects" countKey="collection.data.count" items={dataArticles} />
   </section>
 </BaseLayout>

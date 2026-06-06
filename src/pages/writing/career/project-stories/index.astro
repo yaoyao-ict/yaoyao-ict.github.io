@@ -1,0 +1,39 @@
+---
+import ArticleLayout from "../../../../layouts/ArticleLayout.astro";
+
+const toc = [
+  { id: "problem", label: "Problem", key: "article.section.problem" },
+  { id: "decisions", label: "Decisions", key: "article.section.decisions" },
+  { id: "result", label: "Result", key: "article.section.result" },
+];
+---
+
+<ArticleLayout
+  title="Writing Project Stories That Feel Like Real Work"
+  titleKey="article.projectStories.title"
+  subtitle="A strong project page explains the problem, decisions, process, and outcome."
+  subtitleKey="article.projectStories.description"
+  eyebrow="Career"
+  toc={toc}
+>
+  <section id="problem">
+    <h2 data-i18n="article.section.problem">Problem</h2>
+    <p data-i18n="article.projectStories.problem">
+      A useful project story starts with the real problem and the people affected by it, not with a list of tools.
+    </p>
+  </section>
+
+  <section id="decisions">
+    <h2 data-i18n="article.section.decisions">Decisions</h2>
+    <p data-i18n="article.projectStories.decisions">
+      The strongest evidence usually comes from constraints, tradeoffs, and the reasoning behind important implementation choices.
+    </p>
+  </section>
+
+  <section id="result">
+    <h2 data-i18n="article.section.result">Result</h2>
+    <p data-i18n="article.projectStories.result">
+      The page should make the outcome concrete while still showing how the work could continue to improve.
+    </p>
+  </section>
+</ArticleLayout>
