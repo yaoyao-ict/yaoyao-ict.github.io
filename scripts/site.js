@@ -434,6 +434,77 @@ function updateSearchSummary(query, count) {
   searchSummary.textContent = template.replace("{query}", query).replace("{count}", String(count));
 }
 
+function getSearchableText(element) {
+  const key = element?.dataset?.i18n;
+  return key ? getText(key) : element?.textContent || "";
+}
+
+function getSearchSnippet(text, query, radius = 70) {
+  const lowerText = text.toLowerCase();
+  const lowerQuery = query.toLowerCase();
+  const index = lowerText.indexOf(lowerQuery);
+  if (index < 0) return text;
+
+  const start = Math.max(0, index - radius);
+  const end = Math.min(text.length, index + query.length + radius);
+  return `${start > 0 ? "..." : ""}${text.slice(start, end)}${end < text.length ? "..." : ""}`;
+}
+
+function renderSearchHighlight(element, text, query) {
+  if (!element) return;
+  element.textContent = "";
+
+  const lowerText = text.toLowerCase();
+  const lowerQuery = query.toLowerCase();
+  let cursor = 0;
+  let matchIndex = lowerText.indexOf(lowerQuery);
+
+  while (matchIndex >= 0) {
+    if (matchIndex > cursor) {
+      element.append(document.createTextNode(text.slice(cursor, matchIndex)));
+    }
+
+    const mark = document.createElement("mark");
+    mark.className = "search-highlight";
+    mark.textContent = text.slice(matchIndex, matchIndex + query.length);
+    element.append(mark);
+
+    cursor = matchIndex + query.length;
+    matchIndex = lowerText.indexOf(lowerQuery, cursor);
+  }
+
+  if (cursor < text.length) {
+    element.append(document.createTextNode(text.slice(cursor)));
+  }
+}
+
+function resetTimelineSearchCard(item) {
+  const title = item.querySelector(".timeline-card-title a");
+  const description = item.querySelector(".timeline-card-description");
+  if (title) title.textContent = getSearchableText(title);
+  if (description) description.textContent = getSearchableText(description);
+}
+
+function highlightTimelineSearchCard(item, query) {
+  const title = item.querySelector(".timeline-card-title a");
+  const description = item.querySelector(".timeline-card-description");
+  const titleText = getSearchableText(title);
+  const descriptionText = getSearchableText(description);
+  const lowerQuery = query.toLowerCase();
+  const titleMatches = titleText.toLowerCase().includes(lowerQuery);
+  const descriptionMatches = descriptionText.toLowerCase().includes(lowerQuery);
+
+  renderSearchHighlight(title, titleText, query);
+  renderSearchHighlight(
+    description,
+    descriptionMatches ? getSearchSnippet(descriptionText, query) : descriptionText,
+    query
+  );
+
+  item.classList.toggle("has-title-match", titleMatches);
+  item.classList.toggle("has-description-match", descriptionMatches);
+}
+
 function filterHomeTimeline(query = getSearchQuery()) {
   const timelineList = getTimelineList();
   if (!timelineList) return;
@@ -443,7 +514,10 @@ function filterHomeTimeline(query = getSearchQuery()) {
   if (!nextQuery) {
     document.body.classList.remove("search-active");
     timelineList.classList.remove("searching");
-    items.forEach((item) => item.classList.remove("is-search-hidden"));
+    items.forEach((item) => {
+      item.classList.remove("is-search-hidden", "has-title-match", "has-description-match");
+      resetTimelineSearchCard(item);
+    });
     if (searchSummary) searchSummary.hidden = true;
     if (searchEmpty) searchEmpty.hidden = true;
     return;
@@ -454,11 +528,23 @@ function filterHomeTimeline(query = getSearchQuery()) {
   let matchCount = 0;
 
   items.forEach((item) => {
+    resetTimelineSearchCard(item);
     const searchable = item.querySelector("[data-search-text]");
-    const haystack = `${searchable?.dataset.searchText || ""} ${item.textContent || ""}`.toLowerCase();
+    const title = item.querySelector(".timeline-card-title a");
+    const description = item.querySelector(".timeline-card-description");
+    const haystack = [
+      searchable?.dataset.searchText || "",
+      getSearchableText(title),
+      getSearchableText(description),
+      item.textContent || "",
+    ].join(" ").toLowerCase();
     const isMatch = haystack.includes(nextQuery);
     item.classList.toggle("is-search-hidden", !isMatch);
-    if (isMatch) matchCount += 1;
+    item.classList.remove("has-title-match", "has-description-match");
+    if (isMatch) {
+      highlightTimelineSearchCard(item, query.trim());
+      matchCount += 1;
+    }
   });
 
   updateSearchSummary(query.trim(), matchCount);
@@ -509,9 +595,9 @@ function applyLanguage(lang) {
     label.textContent = getText("label.language", nextLang);
   });
 
-  updateThemeButton();
-  filterHomeTimeline();
   document.dispatchEvent(new CustomEvent("site-language-change", { detail: { lang: nextLang } }));
+  updateThemeButton();
+  window.setTimeout(() => filterHomeTimeline(), 0);
 }
 
 navToggle?.addEventListener("click", () => {
