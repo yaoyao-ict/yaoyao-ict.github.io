@@ -1638,6 +1638,10 @@ body.dark .collection-item:last-child {
   }
 
   .antd-site-header.compact .antd-brand {
+    position: relative;
+    z-index: 1;
+    justify-self: start;
+    width: max-content;
     font-size: 19px;
   }
 
@@ -1653,6 +1657,12 @@ body.dark .collection-item:last-child {
 
   .antd-site-header.compact .antd-header-tools {
     display: none;
+  }
+
+  .antd-site-header.compact .antd-mobile-toggle {
+    position: relative;
+    z-index: 2;
+    justify-self: end;
   }
 
   .antd-main-nav,

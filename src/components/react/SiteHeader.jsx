@@ -150,9 +150,14 @@ export default function SiteHeader({ navigation, home = false, currentPath = "/"
 
         <Button
           className="antd-mobile-toggle"
+          htmlType="button"
           icon={<MenuOutlined />}
           aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((open) => !open)}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setMobileOpen((open) => !open);
+          }}
         >
           {t("button.menu", "Menu")}
         </Button>
