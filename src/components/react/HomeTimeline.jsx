@@ -61,6 +61,14 @@ export default function HomeTimeline({ items = [] }) {
 
     const measureLine = () => {
       const listRect = list.getBoundingClientRect();
+      const feed = list.closest(".home-feed");
+      const firstCard = list.querySelector(".timeline-item:not(.is-hidden):not(.is-search-hidden) .timeline-card");
+      if (feed && firstCard) {
+        const feedRect = feed.getBoundingClientRect();
+        const cardRect = firstCard.getBoundingClientRect();
+        feed.style.setProperty("--timeline-card-left", `${cardRect.left - feedRect.left}px`);
+      }
+
       const visibleDots = [...list.querySelectorAll(".timeline-item:not(.is-hidden):not(.is-search-hidden) .ant-timeline-item-icon")]
         .filter((dot) => dot.offsetParent !== null);
 
@@ -82,12 +90,15 @@ export default function HomeTimeline({ items = [] }) {
 
     const frameMeasure = () => window.requestAnimationFrame(measureLine);
     const observer = new MutationObserver(frameMeasure);
+    const resizeObserver = new ResizeObserver(frameMeasure);
     observer.observe(list, { attributes: true, attributeFilter: ["class"], subtree: true });
+    resizeObserver.observe(list);
     window.addEventListener("resize", frameMeasure);
     frameMeasure();
 
     return () => {
       observer.disconnect();
+      resizeObserver.disconnect();
       window.removeEventListener("resize", frameMeasure);
     };
   }, [items.length, visibleCount, language]);

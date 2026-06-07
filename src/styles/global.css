@@ -672,7 +672,8 @@ input {
 .home-feed {
   --timeline-dot-center: 6px;
   --timeline-content-start: 36px;
-  width: min(100% - 40px, var(--max));
+  --timeline-card-left: var(--timeline-content-start);
+  width: min(100% - 40px, 1180px);
   margin: 58px auto 96px;
 }
 
@@ -728,7 +729,7 @@ input {
 .timeline-list.ant-timeline .ant-timeline-item,
 .timeline-list.ant-timeline .ant-steps-item {
   position: relative;
-  padding-bottom: 14px;
+  padding-bottom: 10px;
 }
 
 .timeline-list.ant-timeline .ant-timeline-item.is-hidden {
@@ -779,7 +780,16 @@ input {
   align-items: center;
 }
 
+.timeline-list.ant-timeline .ant-timeline-item-section,
+.timeline-list.ant-timeline .ant-steps-item-section {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .timeline-card.ant-card {
+  width: 100%;
+  max-height: 140px;
+  overflow: hidden;
   border-color: #f0f0f0;
   border-radius: 8px;
   background: #fff;
@@ -792,7 +802,7 @@ input {
 }
 
 .timeline-card .ant-card-body {
-  padding: 16px 20px;
+  padding: 14px 18px;
 }
 
 .timeline-card-meta {
@@ -811,9 +821,12 @@ input {
 
 .timeline-card-title.ant-typography {
   margin: 0 0 6px;
+  overflow: hidden;
   color: var(--ink);
   font-size: 22px;
   line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .timeline-card-title a:hover {
@@ -821,9 +834,13 @@ input {
 }
 
 .timeline-card-description.ant-typography {
+  display: -webkit-box;
+  overflow: hidden;
   margin: 0;
   color: var(--muted);
   font-size: 15px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 .timeline-card-link.ant-btn {
@@ -931,7 +948,7 @@ input {
 }
 
 .show-more.ant-btn {
-  margin-left: var(--timeline-content-start);
+  margin-left: var(--timeline-card-left);
   min-width: 132px;
   border-radius: 8px;
   font-weight: 800;
