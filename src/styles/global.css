@@ -670,6 +670,8 @@ input {
 }
 
 .home-feed {
+  --timeline-dot-center: 6px;
+  --timeline-content-start: 36px;
   width: min(100% - 40px, var(--max));
   margin: 58px auto 96px;
 }
@@ -702,7 +704,7 @@ input {
 
 .timeline-list.ant-timeline {
   position: relative;
-  max-width: 900px;
+  max-width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -711,17 +713,22 @@ input {
 .timeline-list.ant-timeline::before {
   content: "";
   position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: 5px;
+  top: var(--timeline-line-top, 6px);
+  bottom: calc(100% - var(--timeline-line-bottom, 100%));
+  left: calc(var(--timeline-dot-center) - 1px);
   width: 2px;
   border-radius: 999px;
   background: #d9d9d9;
 }
 
+.timeline-list.ant-timeline.has-single-dot::before {
+  display: none;
+}
+
 .timeline-list.ant-timeline .ant-timeline-item,
 .timeline-list.ant-timeline .ant-steps-item {
-  padding-bottom: 20px;
+  position: relative;
+  padding-bottom: 14px;
 }
 
 .timeline-list.ant-timeline .ant-timeline-item.is-hidden {
@@ -762,7 +769,7 @@ input {
 
 .timeline-list.ant-timeline .ant-timeline-item-content,
 .timeline-list.ant-timeline .ant-steps-item-content {
-  width: min(100%, 760px);
+  width: calc(100% - var(--timeline-content-start));
   min-height: 0;
   margin-inline-start: 24px;
 }
@@ -785,11 +792,11 @@ input {
 }
 
 .timeline-card .ant-card-body {
-  padding: 20px 22px;
+  padding: 16px 20px;
 }
 
 .timeline-card-meta {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .timeline-card-meta .ant-typography {
@@ -803,9 +810,9 @@ input {
 }
 
 .timeline-card-title.ant-typography {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   color: var(--ink);
-  font-size: 23px;
+  font-size: 22px;
   line-height: 1.25;
 }
 
@@ -821,7 +828,7 @@ input {
 
 .timeline-card-link.ant-btn {
   height: auto;
-  margin-top: 12px;
+  margin-top: 10px;
   padding: 0;
   color: #1677ff;
   font-weight: 800;
@@ -924,6 +931,7 @@ input {
 }
 
 .show-more.ant-btn {
+  margin-left: var(--timeline-content-start);
   min-width: 132px;
   border-radius: 8px;
   font-weight: 800;
