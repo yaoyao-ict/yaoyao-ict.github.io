@@ -8,7 +8,7 @@
   --sky-soft: #d8f1fb;
   --chip: #bde6f7;
   --chip-border: #a8d8ee;
-  --footer: #fff4c6;
+  --footer: #fafafa;
   --max: 1030px;
   --sticky-header-space: 92px;
 }
@@ -701,10 +701,22 @@ input {
 }
 
 .timeline-list.ant-timeline {
+  position: relative;
   max-width: 900px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.timeline-list.ant-timeline::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 5px;
+  width: 2px;
+  border-radius: 999px;
+  background: #d9d9d9;
 }
 
 .timeline-list.ant-timeline .ant-timeline-item,
@@ -727,18 +739,6 @@ input {
 
 .timeline-list.ant-timeline .ant-timeline-item-rail,
 .timeline-list.ant-timeline .ant-steps-item-rail {
-  border-color: #d9d9d9;
-}
-
-.timeline-list.ant-timeline .ant-timeline-item.is-last-visible .ant-timeline-item-rail,
-.timeline-list.ant-timeline .ant-timeline-item.is-last-visible .ant-steps-item-rail {
-  display: none;
-}
-
-.timeline-list.ant-timeline .timeline-item:has(+ .is-hidden) .ant-timeline-item-rail,
-.timeline-list.ant-timeline .timeline-item:has(+ .is-hidden) .ant-steps-item-rail,
-.timeline-list.ant-timeline .timeline-item:last-child .ant-timeline-item-rail,
-.timeline-list.ant-timeline .timeline-item:last-child .ant-steps-item-rail {
   display: none;
 }
 
@@ -750,6 +750,7 @@ input {
   background: #1677ff;
   box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.18);
   transform: translateY(-3px);
+  z-index: 1;
 }
 
 .timeline-list.ant-timeline .ant-timeline-item-title,
@@ -1116,6 +1117,7 @@ body.search-active .show-more.ant-btn {
   align-items: center;
   justify-content: space-between;
   margin-top: 56px;
+  border-top: 1px solid #f0f0f0;
   padding: 18px max(20px, calc((100vw - var(--max)) / 2));
   background: var(--footer);
 }
@@ -1132,15 +1134,19 @@ body.search-active .show-more.ant-btn {
 }
 
 .footer-links a {
-  color: #30333c;
+  color: rgba(0, 0, 0, 0.68);
   font-size: 14px;
   font-weight: 750;
+}
+
+.footer-links a:hover {
+  color: #1677ff;
 }
 
 .copyright {
   flex: 0 1 auto;
   margin: 0;
-  color: #5c5e68;
+  color: rgba(0, 0, 0, 0.55);
   font-size: 13px;
   text-align: right;
 }
@@ -1488,9 +1494,8 @@ body.dark .writing-list a {
   border-bottom-color: #2d3442;
 }
 
-body.dark .timeline-list.ant-timeline .ant-timeline-item-rail,
-body.dark .timeline-list.ant-timeline .ant-steps-item-rail {
-  border-color: #2d3442;
+body.dark .timeline-list.ant-timeline::before {
+  background: #2d3442;
 }
 
 body.dark .timeline-list.ant-timeline .ant-timeline-item-icon,
