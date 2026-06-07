@@ -139,19 +139,26 @@ export default function SiteHeader({ navigation, home = false, currentPath = "/"
     window.location.assign("/#latest");
   };
 
+  const handleBrandClick = (event) => {
+    if (event.target.closest("[data-brand-hit]")) return;
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
   return (
     <header className={`antd-site-header ${home ? "home" : "compact"}`}>
       <div className="antd-header-inner">
-        <a className="antd-brand" href="/" aria-label="Home">
-          <span>Yao</span>
-          <span className="antd-brand-mark">W</span>
-          <span>Yao</span>
+        <a className="antd-brand" href="/" aria-label="Home" onClick={handleBrandClick}>
+          <span className="antd-brand-hit" data-brand-hit="true">
+            <span>Yao</span>
+            <span className="antd-brand-mark">W</span>
+            <span>Yao</span>
+          </span>
         </a>
 
-        <Button
+        <button
+          type="button"
           className="antd-mobile-toggle"
-          htmlType="button"
-          icon={<MenuOutlined />}
           aria-expanded={mobileOpen}
           onClick={(event) => {
             event.preventDefault();
@@ -159,8 +166,9 @@ export default function SiteHeader({ navigation, home = false, currentPath = "/"
             setMobileOpen((open) => !open);
           }}
         >
+          <MenuOutlined className="antd-mobile-toggle-icon" />
           {t("button.menu", "Menu")}
-        </Button>
+        </button>
 
         <nav className={`antd-main-nav ${mobileOpen ? "open" : ""}`} aria-label="Main navigation">
           {navigation.map((group) => {

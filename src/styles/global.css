@@ -294,11 +294,20 @@ input {
 .antd-brand {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  justify-self: start;
+  width: max-content;
   color: var(--brand);
   font-size: 21px;
   font-weight: 850;
+  pointer-events: none;
   white-space: nowrap;
+}
+
+.antd-brand-hit {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  pointer-events: auto;
 }
 
 .antd-brand-mark {
@@ -454,7 +463,24 @@ input {
 
 .antd-mobile-toggle {
   display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   justify-self: end;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(26, 31, 40, 0.1);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.antd-mobile-toggle .anticon,
+.antd-mobile-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
 }
 
 .antd-menu-button {
@@ -1663,6 +1689,7 @@ body.dark .collection-item:last-child {
     position: relative;
     z-index: 2;
     justify-self: end;
+    height: 34px;
   }
 
   .antd-main-nav,
