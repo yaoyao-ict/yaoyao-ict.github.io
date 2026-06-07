@@ -1607,12 +1607,23 @@ body.dark .collection-item:last-child {
     --sticky-header-space: 82px;
   }
 
+  body:has(.antd-site-header.compact) {
+    --sticky-header-space: 64px;
+  }
+
   .antd-site-header {
     padding: 10px 0;
   }
 
   .antd-site-header.compact {
-    padding: 10px 0;
+    max-height: 64px;
+    overflow: hidden;
+    padding: 8px 0;
+  }
+
+  .antd-site-header.compact:has(.antd-main-nav.open) {
+    max-height: calc(100dvh - 12px);
+    overflow-y: auto;
   }
 
   .antd-header-inner {
@@ -1624,6 +1635,24 @@ body.dark .collection-item:last-child {
 
   .antd-mobile-toggle {
     display: inline-flex;
+  }
+
+  .antd-site-header.compact .antd-brand {
+    font-size: 19px;
+  }
+
+  .antd-site-header.compact .antd-brand-mark {
+    top: -7px;
+    font-size: 12px;
+  }
+
+  .antd-site-header.compact .antd-header-inner {
+    min-height: 44px;
+    padding: 6px 8px;
+  }
+
+  .antd-site-header.compact .antd-header-tools {
+    display: none;
   }
 
   .antd-main-nav,
