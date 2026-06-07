@@ -745,6 +745,10 @@ input {
   display: none;
 }
 
+.timeline-list.ant-timeline.searching .ant-timeline-item.is-search-hidden {
+  display: none;
+}
+
 .timeline-list.ant-timeline .ant-timeline-item-rail,
 .timeline-list.ant-timeline .ant-steps-item-rail {
   display: none;
