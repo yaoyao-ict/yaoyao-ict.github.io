@@ -41,11 +41,32 @@ const values = chartPoints.map((point) => point.value);
 const minValue = Math.min(0, ...values);
 const maxValue = Math.max(0, ...values);
 const range = Math.max(1, maxValue - minValue);
-const chartPath = chartPoints
-  .map((point, index) => {
-    const x = padding + (index * (chartWidth - padding * 2)) / Math.max(1, chartPoints.length - 1);
-    const y = chartHeight - padding - ((point.value - minValue) / range) * (chartHeight - padding * 2);
-    return `${index === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`;
+const plotPoints = chartPoints.map((point, index) => ({
+  ...point,
+  x: padding + (index * (chartWidth - padding * 2)) / Math.max(1, chartPoints.length - 1),
+  y: chartHeight - padding - ((point.value - minValue) / range) * (chartHeight - padding * 2),
+}));
+const chartPath = plotPoints
+  .map((point, index, points) => {
+    if (index === 0) return `M ${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
+
+    const previous = points[index - 1];
+    const beforePrevious = points[index - 2] || previous;
+    const next = points[index + 1] || point;
+    const controlOneX = previous.x + (point.x - beforePrevious.x) / 6;
+    const controlOneY = previous.y + (point.y - beforePrevious.y) / 6;
+    const controlTwoX = point.x - (next.x - previous.x) / 6;
+    const controlTwoY = point.y - (next.y - previous.y) / 6;
+
+    return [
+      "C",
+      controlOneX.toFixed(2),
+      controlOneY.toFixed(2),
+      controlTwoX.toFixed(2),
+      controlTwoY.toFixed(2),
+      point.x.toFixed(2),
+      point.y.toFixed(2),
+    ].join(" ");
   })
   .join(" ");
 const zeroY = chartHeight - padding - ((0 - minValue) / range) * (chartHeight - padding * 2);
@@ -89,13 +110,11 @@ const zeroY = chartHeight - padding - ((0 - minValue) / range) * (chartHeight - 
         <svg class="poker-chart" viewBox={`0 0 ${chartWidth} ${chartHeight}`} role="img" aria-labelledby="poker-chart-title">
           <line x1={padding} y1={zeroY} x2={chartWidth - padding} y2={zeroY} class="poker-zero-line" />
           <path d={chartPath} class="poker-profit-line" />
-          {chartPoints.map((point, index) => {
-            const x = padding + (index * (chartWidth - padding * 2)) / Math.max(1, chartPoints.length - 1);
-            const y = chartHeight - padding - ((point.value - minValue) / range) * (chartHeight - padding * 2);
+          {plotPoints.map((point) => {
             return (
               <g>
-                <circle cx={x} cy={y} r="5" class="poker-chart-dot" />
-                <text x={x} y={chartHeight - 8} text-anchor="middle">{point.label}</text>
+                <circle cx={point.x} cy={point.y} r="5" class="poker-chart-dot" />
+                <text x={point.x} y={chartHeight - 8} text-anchor="middle">{point.label}</text>
               </g>
             );
           })}
