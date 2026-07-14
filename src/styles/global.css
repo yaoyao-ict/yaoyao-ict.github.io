@@ -1498,6 +1498,10 @@ body.search-active .show-more.ant-btn {
   font-weight: 600;
 }
 
+.mobile-cell-label {
+  display: none;
+}
+
 .poker-note-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1509,13 +1513,19 @@ body.search-active .show-more.ant-btn {
 }
 
 .poker-note h3 {
-  margin: 0 0 8px;
+  margin: 4px 0 8px;
   font-size: 22px;
 }
 
 .poker-note p {
   margin: 0;
   color: var(--muted);
+}
+
+.poker-note time {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 850;
 }
 
 body.theme-changing::before {
@@ -2071,6 +2081,14 @@ body.dark .collection-item:last-child {
   .poker-stat {
     min-height: 104px;
   }
+
+  .poker-chart {
+    min-width: 0;
+  }
+
+  .poker-session-table {
+    min-width: 0;
+  }
 }
 
 @media (max-width: 520px) {
@@ -2102,5 +2120,87 @@ body.dark .collection-item:last-child {
 
   .newsletter h2 {
     font-size: 23px;
+  }
+
+  .poker-page {
+    gap: 20px;
+  }
+
+  .poker-panel {
+    padding: 16px;
+  }
+
+  .poker-stat strong {
+    font-size: 26px;
+  }
+
+  .poker-chart-wrap,
+  .poker-session-table-wrap {
+    overflow-x: visible;
+  }
+
+  .poker-chart {
+    aspect-ratio: 1.35;
+  }
+
+  .poker-chart text {
+    font-size: 15px;
+  }
+
+  .poker-session-table,
+  .poker-session-table thead,
+  .poker-session-table tbody,
+  .poker-session-table tr,
+  .poker-session-table th,
+  .poker-session-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .poker-session-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .poker-session-table tbody {
+    display: grid;
+    gap: 12px;
+  }
+
+  .poker-session-table tr {
+    border: 1px solid #d9e8f1;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.48);
+    padding: 12px;
+  }
+
+  .poker-session-table td {
+    display: grid;
+    grid-template-columns: minmax(86px, 38%) minmax(0, 1fr);
+    gap: 10px;
+    border-bottom: 0;
+    padding: 7px 0;
+  }
+
+  .mobile-cell-label {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .poker-session-table td:last-child {
+    min-width: 0;
+  }
+
+  body.dark .poker-session-table tr {
+    border-color: #2f4357;
+    background: rgba(24, 28, 39, 0.48);
   }
 }

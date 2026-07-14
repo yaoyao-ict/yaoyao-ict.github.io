@@ -124,13 +124,13 @@ const zeroY = chartHeight - padding - ((0 - minValue) / range) * (chartHeight - 
           <tbody>
             {sessions.map((session) => (
               <tr>
-                <td>{session.date}</td>
-                <td>{session.game}</td>
-                <td>{session.durationHours}</td>
-                <td>{currency.format(session.buyIn)}</td>
-                <td>{currency.format(session.cashOut)}</td>
-                <td class={session.profit >= 0 ? "is-positive" : "is-negative"}>{currency.format(session.profit)}</td>
-                <td data-i18n={session.notesKey}>{session.notes}</td>
+                <td><span class="mobile-cell-label" data-i18n="poker.table.date">Date</span><span>{session.date}</span></td>
+                <td><span class="mobile-cell-label" data-i18n="poker.table.game">Game</span><span>{session.game}</span></td>
+                <td><span class="mobile-cell-label" data-i18n="poker.table.hours">Hours</span><span>{session.durationHours}</span></td>
+                <td><span class="mobile-cell-label" data-i18n="poker.table.buyIn">Buy-in</span><span>{currency.format(session.buyIn)}</span></td>
+                <td><span class="mobile-cell-label" data-i18n="poker.table.cashOut">Cash Out</span><span>{currency.format(session.cashOut)}</span></td>
+                <td class={session.profit >= 0 ? "is-positive" : "is-negative"}><span class="mobile-cell-label" data-i18n="poker.table.profit">Profit</span><span>{currency.format(session.profit)}</span></td>
+                <td><span class="mobile-cell-label" data-i18n="poker.table.notes">Notes</span><span data-i18n={session.notesKey}>{session.notes}</span></td>
               </tr>
             ))}
           </tbody>
@@ -146,7 +146,9 @@ const zeroY = chartHeight - padding - ((0 - minValue) / range) * (chartHeight - 
       <div class="poker-note-list">
         {pokerNotes.map((note) => (
           <article class="poker-note">
+            <time datetime={note.date}>{note.date}</time>
             <h3 data-i18n={note.titleKey}>{note.title}</h3>
+            <p class="subtitle" data-i18n={note.subtitleKey}>{note.subtitle}</p>
             <p data-i18n={note.descriptionKey}>{note.description}</p>
           </article>
         ))}

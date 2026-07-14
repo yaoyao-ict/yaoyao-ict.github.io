@@ -130,15 +130,23 @@ export const pokerNotes = [
   {
     title: "Session Review Checklist",
     titleKey: "poker.note.review.title",
+    subtitle: "Poker / Session Review",
+    subtitleKey: "poker.note.review.subtitle",
     description: "A repeatable structure for reviewing big pots, mental state, table selection, and bankroll movement.",
     descriptionKey: "poker.note.review.description",
+    category: "Poker",
+    date: "2026-07-13",
     href: "/poker/#notes",
   },
   {
     title: "Preflop Discipline",
     titleKey: "poker.note.preflop.title",
+    subtitle: "Poker / Strategy",
+    subtitleKey: "poker.note.preflop.subtitle",
     description: "Notes on avoiding loose calls from bad positions and keeping ranges clear before the flop.",
     descriptionKey: "poker.note.preflop.description",
+    category: "Poker",
+    date: "2026-07-10",
     href: "/poker/#notes",
   },
 ];
@@ -281,6 +289,7 @@ export const aboutArticles = [
 
 export const datedArticles = [
   ...writingArticles,
+  ...pokerNotes,
   projectArticles[0],
   projectArticles[1],
   dataArticles[1],

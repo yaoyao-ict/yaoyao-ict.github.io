@@ -3,6 +3,7 @@ const home = { title: "Home", titleKey: "aria.home", href: "/" };
 const crumbs = {
   "/about/": [{ title: "About", titleKey: "nav.about" }],
   "/contact/": [{ title: "About", titleKey: "nav.about", href: "/about/" }, { title: "Contact", titleKey: "article.contact.title" }],
+  "/poker/": [{ title: "Poker", titleKey: "nav.poker" }],
   "/projects/": [{ title: "Projects", titleKey: "nav.projects" }],
   "/projects/automation/": [
     { title: "Projects", titleKey: "nav.projects", href: "/projects/" },
