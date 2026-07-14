@@ -1355,6 +1355,169 @@ body.search-active .show-more.ant-btn {
   font-size: 18px;
 }
 
+.poker-page {
+  display: grid;
+  gap: 28px;
+}
+
+.poker-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.poker-stat,
+.poker-panel,
+.poker-note {
+  border: 1px solid #d9e8f1;
+  border-radius: 8px;
+  background: #f8fcff;
+}
+
+.poker-stat {
+  display: grid;
+  gap: 8px;
+  min-height: 118px;
+  padding: 18px;
+}
+
+.poker-stat span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.poker-stat strong {
+  align-self: end;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.is-positive {
+  color: #087443;
+}
+
+.is-negative {
+  color: #b42318;
+}
+
+.poker-panel {
+  padding: 24px;
+}
+
+.poker-section-heading {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.poker-section-heading h2 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.poker-section-heading p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--muted);
+}
+
+.poker-chart-wrap {
+  overflow-x: auto;
+}
+
+.poker-chart {
+  display: block;
+  width: 100%;
+  min-width: 620px;
+  height: auto;
+}
+
+.poker-zero-line {
+  stroke: rgba(16, 18, 25, 0.18);
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+}
+
+.poker-profit-line {
+  fill: none;
+  stroke: var(--brand);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 5;
+}
+
+.poker-chart-dot {
+  fill: var(--accent);
+  stroke: #fff;
+  stroke-width: 3;
+}
+
+.poker-chart text {
+  fill: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.poker-session-table-wrap {
+  overflow-x: auto;
+}
+
+.poker-session-table {
+  width: 100%;
+  min-width: 820px;
+  border-collapse: collapse;
+}
+
+.poker-session-table th,
+.poker-session-table td {
+  border-bottom: 1px solid #e1e7ef;
+  padding: 12px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.poker-session-table th {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.poker-session-table td {
+  font-weight: 700;
+}
+
+.poker-session-table td:last-child {
+  min-width: 240px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.poker-note-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.poker-note {
+  padding: 20px;
+}
+
+.poker-note h3 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.poker-note p {
+  margin: 0;
+  color: var(--muted);
+}
+
 body.theme-changing::before {
   content: "";
   position: fixed;
@@ -1564,6 +1727,34 @@ body.dark .detail-card,
 body.dark .toc {
   background: #1d2330;
   border-color: #2f4357;
+}
+
+body.dark .poker-stat,
+body.dark .poker-panel,
+body.dark .poker-note {
+  background: #1d2330;
+  border-color: #2f4357;
+}
+
+body.dark .is-positive {
+  color: #7ee2a8;
+}
+
+body.dark .is-negative {
+  color: #ff9b94;
+}
+
+body.dark .poker-zero-line {
+  stroke: rgba(255, 255, 255, 0.18);
+}
+
+body.dark .poker-chart-dot {
+  stroke: #1d2330;
+}
+
+body.dark .poker-session-table th,
+body.dark .poker-session-table td {
+  border-bottom-color: #2d3442;
 }
 
 body.dark .form-row input {
@@ -1824,6 +2015,8 @@ body.dark .collection-item:last-child {
   .content-grid,
   .newsletter,
   .card-grid,
+  .poker-summary-grid,
+  .poker-note-list,
   .article-grid {
     grid-template-columns: 1fr;
   }
@@ -1869,6 +2062,14 @@ body.dark .collection-item:last-child {
 
   .toc {
     position: static;
+  }
+
+  .poker-panel {
+    padding: 18px;
+  }
+
+  .poker-stat {
+    min-height: 104px;
   }
 }
 

@@ -1,0 +1,156 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import { pokerNotes, pokerSessions } from "../../data/navigation.js";
+
+const currency = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
+
+const sessions = pokerSessions.map((session, index) => {
+  const profit = session.cashOut - session.buyIn;
+  return {
+    ...session,
+    index: index + 1,
+    profit,
+    hourly: profit / session.durationHours,
+  };
+});
+
+let runningTotal = 0;
+const chartPoints = sessions.map((session) => {
+  runningTotal += session.profit;
+  return {
+    label: session.date.slice(5),
+    value: runningTotal,
+  };
+});
+
+const totalProfit = sessions.reduce((sum, session) => sum + session.profit, 0);
+const totalHours = sessions.reduce((sum, session) => sum + session.durationHours, 0);
+const winningSessions = sessions.filter((session) => session.profit > 0).length;
+const winRate = sessions.length ? Math.round((winningSessions / sessions.length) * 100) : 0;
+const hourlyRate = totalHours ? totalProfit / totalHours : 0;
+
+const chartWidth = 720;
+const chartHeight = 280;
+const padding = 34;
+const values = chartPoints.map((point) => point.value);
+const minValue = Math.min(0, ...values);
+const maxValue = Math.max(0, ...values);
+const range = Math.max(1, maxValue - minValue);
+const chartPath = chartPoints
+  .map((point, index) => {
+    const x = padding + (index * (chartWidth - padding * 2)) / Math.max(1, chartPoints.length - 1);
+    const y = chartHeight - padding - ((point.value - minValue) / range) * (chartHeight - padding * 2);
+    return `${index === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`;
+  })
+  .join(" ");
+const zeroY = chartHeight - padding - ((0 - minValue) / range) * (chartHeight - padding * 2);
+---
+
+<BaseLayout title="Poker | YaoYao" titleKey="title.poker">
+  <section class="page-shell poker-page">
+    <PageHeader
+      eyebrow="Poker"
+      title="Poker Journal"
+      titleKey="page.poker.title"
+      lead="A place to track session results, bankroll movement, and notes from the tables."
+      leadKey="page.poker.lead"
+    />
+
+    <div class="poker-summary-grid" aria-label="Poker performance summary">
+      <article class="poker-stat">
+        <span data-i18n="poker.stat.totalProfit">Total Profit</span>
+        <strong class={totalProfit >= 0 ? "is-positive" : "is-negative"}>{currency.format(totalProfit)}</strong>
+      </article>
+      <article class="poker-stat">
+        <span data-i18n="poker.stat.hourly">Hourly Rate</span>
+        <strong class={hourlyRate >= 0 ? "is-positive" : "is-negative"}>{currency.format(hourlyRate)}/hr</strong>
+      </article>
+      <article class="poker-stat">
+        <span data-i18n="poker.stat.sessions">Sessions</span>
+        <strong>{sessions.length}</strong>
+      </article>
+      <article class="poker-stat">
+        <span data-i18n="poker.stat.winRate">Win Rate</span>
+        <strong>{winRate}%</strong>
+      </article>
+    </div>
+
+    <section class="poker-panel" aria-labelledby="poker-chart-title">
+      <div class="poker-section-heading">
+        <h2 id="poker-chart-title" data-i18n="poker.chart.title">Profit Trend</h2>
+        <p data-i18n="poker.chart.lead">Cumulative results across logged sessions.</p>
+      </div>
+      <div class="poker-chart-wrap">
+        <svg class="poker-chart" viewBox={`0 0 ${chartWidth} ${chartHeight}`} role="img" aria-labelledby="poker-chart-title">
+          <line x1={padding} y1={zeroY} x2={chartWidth - padding} y2={zeroY} class="poker-zero-line" />
+          <path d={chartPath} class="poker-profit-line" />
+          {chartPoints.map((point, index) => {
+            const x = padding + (index * (chartWidth - padding * 2)) / Math.max(1, chartPoints.length - 1);
+            const y = chartHeight - padding - ((point.value - minValue) / range) * (chartHeight - padding * 2);
+            return (
+              <g>
+                <circle cx={x} cy={y} r="5" class="poker-chart-dot" />
+                <text x={x} y={chartHeight - 8} text-anchor="middle">{point.label}</text>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+    </section>
+
+    <section id="sessions" class="poker-panel" aria-labelledby="poker-sessions-title">
+      <div class="poker-section-heading">
+        <h2 id="poker-sessions-title" data-i18n="poker.sessions.title">Session Log</h2>
+        <p data-i18n="poker.sessions.lead">Recent results with enough context to review decisions later.</p>
+      </div>
+      <div class="poker-session-table-wrap">
+        <table class="poker-session-table">
+          <thead>
+            <tr>
+              <th data-i18n="poker.table.date">Date</th>
+              <th data-i18n="poker.table.game">Game</th>
+              <th data-i18n="poker.table.hours">Hours</th>
+              <th data-i18n="poker.table.buyIn">Buy-in</th>
+              <th data-i18n="poker.table.cashOut">Cash Out</th>
+              <th data-i18n="poker.table.profit">Profit</th>
+              <th data-i18n="poker.table.notes">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sessions.map((session) => (
+              <tr>
+                <td>{session.date}</td>
+                <td>{session.game}</td>
+                <td>{session.durationHours}</td>
+                <td>{currency.format(session.buyIn)}</td>
+                <td>{currency.format(session.cashOut)}</td>
+                <td class={session.profit >= 0 ? "is-positive" : "is-negative"}>{currency.format(session.profit)}</td>
+                <td data-i18n={session.notesKey}>{session.notes}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="notes" class="poker-panel" aria-labelledby="poker-notes-title">
+      <div class="poker-section-heading">
+        <h2 id="poker-notes-title" data-i18n="poker.notes.title">Strategy Notes</h2>
+        <p data-i18n="poker.notes.lead">Short notes can grow into full articles as the section develops.</p>
+      </div>
+      <div class="poker-note-list">
+        {pokerNotes.map((note) => (
+          <article class="poker-note">
+            <h3 data-i18n={note.titleKey}>{note.title}</h3>
+            <p data-i18n={note.descriptionKey}>{note.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </section>
+</BaseLayout>

@@ -20,6 +20,16 @@ export const navigation = [
     ],
   },
   {
+    label: "Poker",
+    key: "nav.poker",
+    icon: "poker",
+    links: [
+      { label: "Poker Overview", key: "nav.poker.overview", href: "/poker/", icon: "chart" },
+      { label: "Session Log", key: "nav.poker.sessions", href: "/poker/#sessions", icon: "grid" },
+      { label: "Strategy Notes", key: "nav.poker.notes", href: "/poker/#notes", icon: "book" },
+    ],
+  },
+  {
     label: "About",
     key: "nav.about",
     icon: "user",
@@ -70,6 +80,66 @@ export const writingCards = [
     href: "/writing/career/",
     description: "Project storytelling, portfolio writing, collaboration, and long-term growth.",
     descriptionKey: "card.writing.career.description",
+  },
+];
+
+export const pokerSessions = [
+  {
+    date: "2026-07-02",
+    game: "NLH 1/3",
+    location: "Live",
+    durationHours: 4.5,
+    buyIn: 300,
+    cashOut: 615,
+    notes: "Good table selection and patient river decisions.",
+    notesKey: "poker.session.20260702.notes",
+  },
+  {
+    date: "2026-07-05",
+    game: "NLH 1/3",
+    location: "Live",
+    durationHours: 3.25,
+    buyIn: 400,
+    cashOut: 260,
+    notes: "Lost two medium pots after defending too wide out of position.",
+    notesKey: "poker.session.20260705.notes",
+  },
+  {
+    date: "2026-07-09",
+    game: "NLH 2/5",
+    location: "Live",
+    durationHours: 5,
+    buyIn: 700,
+    cashOut: 1180,
+    notes: "Value betting thinner worked well against passive callers.",
+    notesKey: "poker.session.20260709.notes",
+  },
+  {
+    date: "2026-07-12",
+    game: "NLH 1/3",
+    location: "Live",
+    durationHours: 2.75,
+    buyIn: 300,
+    cashOut: 210,
+    notes: "Short session; quit early after noticing focus dropping.",
+    notesKey: "poker.session.20260712.notes",
+  },
+];
+
+export const pokerNotes = [
+  {
+    title: "Session Review Checklist",
+    titleKey: "poker.note.review.title",
+    description: "A repeatable structure for reviewing big pots, mental state, table selection, and bankroll movement.",
+    descriptionKey: "poker.note.review.description",
+    href: "/poker/#notes",
+  },
+  {
+    title: "Preflop Discipline",
+    titleKey: "poker.note.preflop.title",
+    description: "Notes on avoiding loose calls from bad positions and keeping ranges clear before the flop.",
+    descriptionKey: "poker.note.preflop.description",
+    href: "/poker/#notes",
   },
 ];
 
